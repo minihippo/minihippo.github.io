@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>周记17.09.18 | MiniHippo&#39;s Blog</title>
+  <title>Hello World | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="function doDecrypt(pwd, onError) { 	console.log(&quot;in doDecrypt&quot;); 	var txt = document.getElementById(&quot;enc_content&quot;).innerHTML; 	var plantext; 	try { 	  	var bytes = CryptoJS.AES.decrypt(txt, pwd); 		p">
-<meta name="keywords" content="周记">
+  <meta name="description" content="终于，从2016到2017中间断断续续，因为保研毕设各种事情，这个博客在研一开学的时候搭起来了。 应该是在大三的时候，强烈地想有一个技术博记录遇到的各种问题（当然也想装个b）。然而大三忙着保研，大四忙着毕设，暑假忙着玩，果然还是懒，所以这个博终于推到现在搞定了。 感谢Litten写的Hexo Yilia模版，很漂亮。对于审美有缺陷的我来说，写前端真的是件很痛苦的事情。 最后 Hello, Worl">
+<meta name="keywords" content="hexo,杂谈">
 <meta property="og:type" content="article">
-<meta property="og:title" content="周记17.09.18">
-<meta property="og:url" content="http://minihippo.github.io/2017/09/18/周记17-09-18/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="http://minihippo.github.io/2017/09/20/hello-world/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="function doDecrypt(pwd, onError) { 	console.log(&quot;in doDecrypt&quot;); 	var txt = document.getElementById(&quot;enc_content&quot;).innerHTML; 	var plantext; 	try { 	  	var bytes = CryptoJS.AES.decrypt(txt, pwd); 		p">
+<meta property="og:description" content="终于，从2016到2017中间断断续续，因为保研毕设各种事情，这个博客在研一开学的时候搭起来了。 应该是在大三的时候，强烈地想有一个技术博记录遇到的各种问题（当然也想装个b）。然而大三忙着保研，大四忙着毕设，暑假忙着玩，果然还是懒，所以这个博终于推到现在搞定了。 感谢Litten写的Hexo Yilia模版，很漂亮。对于审美有缺陷的我来说，写前端真的是件很痛苦的事情。 最后 Hello, Worl">
 <meta property="og:locale" content="Chinese">
-<meta property="og:updated_time" content="2017-09-19T04:19:52.000Z">
+<meta property="og:updated_time" content="2017-09-19T16:52:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="周记17.09.18">
-<meta name="twitter:description" content="function doDecrypt(pwd, onError) { 	console.log(&quot;in doDecrypt&quot;); 	var txt = document.getElementById(&quot;enc_content&quot;).innerHTML; 	var plantext; 	try { 	  	var bytes = CryptoJS.AES.decrypt(txt, pwd); 		p">
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="终于，从2016到2017中间断断续续，因为保研毕设各种事情，这个博客在研一开学的时候搭起来了。 应该是在大三的时候，强烈地想有一个技术博记录遇到的各种问题（当然也想装个b）。然而大三忙着保研，大四忙着毕设，暑假忙着玩，果然还是懒，所以这个博终于推到现在搞定了。 感谢Litten写的Hexo Yilia模版，很漂亮。对于审美有缺陷的我来说，写前端真的是件很痛苦的事情。 最后 Hello, Worl">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -175,55 +175,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-周记17-09-18" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      周记17.09.18
+      Hello World
     </h1>
   
 
         
-        <a href="/2017/09/18/周记17-09-18/" class="archive-article-date">
-  	<time datetime="2017-09-18T11:09:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
+        <a href="/2017/09/20/hello-world/" class="archive-article-date">
+  	<time datetime="2017-09-19T16:52:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src="/js/crypto-js.js"></script><script>
-function doDecrypt(pwd, onError) {
-	console.log("in doDecrypt");
-	var txt = document.getElementById("enc_content").innerHTML;
-	var plantext;
-	try {
-	  	var bytes = CryptoJS.AES.decrypt(txt, pwd);
-		plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {onError(err);}
-		return;
-	}
-	document.getElementById("enc_content").innerHTML = plaintext;
-	document.getElementById("enc_content").style.display = "block";
-   document.getElementById("enc_passwd").style.display = "none";
-}
-</script>
-<div id="enc_content" style="display:none">U2FsdGVkX19Pe4vCQu9eObulDmEs5Xry05f8xl3s93E6n2S4IHv/7Kh4gfEpIVq9ct/CibJci17VNkhjmMFcRhS9/LIb6iGrL/rir3h7C+L2gap1ayao0NUphEZew4TER5darDDsVti0d9A8R2/wbhr1CGOr1ha6bpGIccb7lU9seqkoJHV5GsJGo2z4AiJBYOpTRJizUewjEbcWAdSSbxn8ABJ+ZH8AaZfGVKanOJg=</div><div id="enc_passwd"> <input id="enc_pwd_input" type="text" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <p>终于，从2016到2017中间断断续续，因为保研毕设各种事情，这个博客在研一开学的时候搭起来了。</p>
+<p>应该是在大三的时候，强烈地想有一个技术博记录遇到的各种问题（当然也想装个b）。然而大三忙着保研，大四忙着毕设，暑假忙着玩，果然还是懒，所以这个博终于推到现在搞定了。</p>
+<p>感谢Litten写的Hexo Yilia模版，很漂亮。对于审美有缺陷的我来说，写前端真的是件很痛苦的事情。</p>
+<p><strong>最后</strong></p>
+<p><strong>Hello, World!</strong></p>
+<p align="right">By 小河马</p>
+
+
       
 
       
@@ -236,7 +215,11 @@ doDecrypt(passwd, onError);
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">周记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
         		</li>
       		
 		</ul>
@@ -292,7 +275,7 @@ doDecrypt(passwd, onError);
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/09/18/周记17-09-18/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/09/20/hello-world/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -306,18 +289,9 @@ doDecrypt(passwd, onError);
   
 <nav id="article-nav">
   
-    <a href="/2017/09/18/git使用指南/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          git使用指南
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/09/18/碎碎念/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">碎碎念</div>
+    <a href="/2017/09/18/git使用指南/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">git使用指南</div>
       <i class="icon-circle-right"></i>
     </a>
   
