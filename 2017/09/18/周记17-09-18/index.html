@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>周记17.09.18 | MiniHippo&#39;s Blog</title>
+  <title>周记17.09.18-24 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="function doDecrypt(pwd, onError) { 	console.log(&quot;in doDecrypt&quot;); 	var txt = document.getElementById(&quot;enc_content&quot;).innerHTML; 	var plantext; 	try { 	  	var bytes = CryptoJS.AES.decrypt(txt, pwd); 		p">
+  <meta name="description" content="本周任务   7条leetcode [] scala两章内容 [] 西瓜书一章 [] mac OSX python环境搭建  周末回家了。。。">
 <meta name="keywords" content="周记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="周记17.09.18">
+<meta property="og:title" content="周记17.09.18-24">
 <meta property="og:url" content="http://minihippo.github.io/2017/09/18/周记17-09-18/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="function doDecrypt(pwd, onError) { 	console.log(&quot;in doDecrypt&quot;); 	var txt = document.getElementById(&quot;enc_content&quot;).innerHTML; 	var plantext; 	try { 	  	var bytes = CryptoJS.AES.decrypt(txt, pwd); 		p">
-<meta property="og:updated_time" content="2017-09-22T12:03:47.000Z">
+<meta property="og:description" content="本周任务   7条leetcode [] scala两章内容 [] 西瓜书一章 [] mac OSX python环境搭建  周末回家了。。。">
+<meta property="og:updated_time" content="2017-09-24T15:38:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="周记17.09.18">
-<meta name="twitter:description" content="function doDecrypt(pwd, onError) { 	console.log(&quot;in doDecrypt&quot;); 	var txt = document.getElementById(&quot;enc_content&quot;).innerHTML; 	var plantext; 	try { 	  	var bytes = CryptoJS.AES.decrypt(txt, pwd); 		p">
+<meta name="twitter:title" content="周记17.09.18-24">
+<meta name="twitter:description" content="本周任务   7条leetcode [] scala两章内容 [] 西瓜书一章 [] mac OSX python环境搭建  周末回家了。。。">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -181,7 +181,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      周记17.09.18
+      周记17.09.18-24
     </h1>
   
 
@@ -194,35 +194,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src="/js/crypto-js.js"></script><script>
-function doDecrypt(pwd, onError) {
-	console.log("in doDecrypt");
-	var txt = document.getElementById("enc_content").innerHTML;
-	var plantext;
-	try {
-	  	var bytes = CryptoJS.AES.decrypt(txt, pwd);
-		plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {onError(err);}
-		return;
-	}
-	document.getElementById("enc_content").innerHTML = plaintext;
-	document.getElementById("enc_content").style.display = "block";
-   document.getElementById("enc_passwd").style.display = "none";
-}
-</script>
-<div id="enc_content" style="display:none">U2FsdGVkX19fdbnfbt4Xai4Ipx7VAy9muqc7bBsw8z3PNcLq0e77AscFWO255KFIkPfMlf07uXko8NDL4byM67MM75reYop4BOozfpHXsSJrHHJPP3mxmRlP2akErBNlyiTLqXnAzjmpDq3NnY8Nd33c7IiBZVuwZWm2Ll404+SouUTTW0zbuhIRYyLXsjRNLrBtyAPPFJrFb1PbyYGuDxtenZY3PGTu3YNMSp1Q/jU=</div><div id="enc_passwd"> <input id="enc_pwd_input" type="text" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <p>本周任务</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> 7条leetcode</li>
+<li>[] scala两章内容</li>
+<li>[] 西瓜书一章</li>
+<li>[] mac OSX python环境搭建</li>
+</ul>
+<p>周末回家了。。。</p>
+
       
 
       
@@ -459,6 +439,18 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">教程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">备份</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -467,19 +459,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">备份</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">教程</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">周记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>
