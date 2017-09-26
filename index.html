@@ -174,6 +174,159 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-markdown" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/26/markdown/">markdown语法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/26/markdown/" class="archive-article-date">
+  	<time datetime="2017-09-26T11:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p></p>
+<h2><span id="overview">Overview</span></h2><p><img src="/picture/markdown语法.png" alt="markdown语法"></p>
+<p></p><p></p>
+<h2><span id="headers">Headers</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> This is an H1  </div><div class="line"><span class="meta">#</span># This is an H2  </div><div class="line"><span class="meta">#</span>## This is an H3</div><div class="line"><span class="meta">#</span>### This is an H4</div><div class="line"><span class="meta">#</span>#### This is an H5</div><div class="line"><span class="meta">#</span>##### This is an H6</div></pre></td></tr></table></figure>
+<h1><span id="this-is-an-h1">This is an H1</span></h1><h2><span id="this-is-an-h2">This is an H2</span></h2><h3><span id="this-is-an-h3">This is an H3</span></h3><h4><span id="this-is-an-h4">This is an H4</span></h4><h5><span id="this-is-an-h5">This is an H5</span></h5><h6><span id="this-is-an-h6">This is an H6</span></h6><p></p><p></p>
+<h2><span id="lists">Lists</span></h2><h5><span id="unordered">Unordered</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 1</div><div class="line">* 2</div></pre></td></tr></table></figure>
+<ul>
+<li>1</li>
+<li>2  </li>
+</ul>
+<h5><span id="ordered">Ordered</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 1</div><div class="line">2. 2</div></pre></td></tr></table></figure>
+<ol>
+<li>1</li>
+<li>2</li>
+</ol>
+<h5><span id="assignment">Assignment</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- [ ] eat</div><div class="line">- [x] sleep</div></pre></td></tr></table></figure>
+<ul>
+<li style="list-style: none"><input type="checkbox"> eat</li>
+<li style="list-style: none"><input type="checkbox" checked> sleep</li>
+</ul>
+<p></p><p></p>
+<h2><span id="blockquotes">Blockquotes</span></h2><h5><span id="contents">Contents</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> For example</div></pre></td></tr></table></figure>
+<blockquote>
+<p>For example  </p>
+</blockquote>
+<p></p><p></p>
+<h5><span id="page-links">Page Links</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[baidu](http://www.baidu.com)</div></pre></td></tr></table></figure>
+<p><a href="http://www.baidu.com" target="_blank" rel="external">baidu</a></p>
+<h5><span id="picture-links">Picture Links</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![title](path)</div></pre></td></tr></table></figure>
+<p></p><p></p>
+<h2><span id="code-blocks">Code Blocks</span></h2><h5><span id="single-line">Single Line</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">`code`</div></pre></td></tr></table></figure>
+<p><code>code</code></p>
+<h5><span id="block">Block</span></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">\`\`\`java</div><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">int</span> a = <span class="number">5</span></div><div class="line">\`\`\`</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//test</span></div><div class="line"><span class="keyword">int</span> a = <span class="number">5</span></div></pre></td></tr></table></figure>
+<p></p><p></p>
+<h2><span id="font">Font</span></h2><h5><span id="blod">Blod</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**blod**</div></pre></td></tr></table></figure>
+<p><strong>blod</strong></p>
+<h5><span id="italic">Italic</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*italic*</div></pre></td></tr></table></figure>
+<p><em>italic</em></p>
+<h5><span id="underline">Underline</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;u&gt;underline&lt;/u&gt;</div></pre></td></tr></table></figure>
+<p><u>underline</u></p>
+<h5><span id="horizontal-rules">Horizontal Rules</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">*****</div><div class="line">____</div></pre></td></tr></table></figure>
+<hr>
+<h5><span id="line-through">Line-through</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~~line-through~~</div></pre></td></tr></table></figure>
+<p><del>line-through</del></p>
+<h5><span id="backslash-escapes">Backslash Escapes</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\*bacslash escape\*</div></pre></td></tr></table></figure>
+<p>*bacslash escape*</p>
+<h2><span id="tables">Tables</span></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">| name1 | name2 | name3 |</div><div class="line">| ----- | ----- | ----- |</div><div class="line">| 1     | 2     | 3     |</div><div class="line">| 1     | 2     | 3     |</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>name1</th>
+<th>name2</th>
+<th>name3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p></p><p></p>
+<h2><span id="peference">Peference</span></h2><h5><span id="mathematical-expression">Mathematical Expression</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> lim_&#123;x \to \infty&#125;\exp(-x) = 0$</div></pre></td></tr></table></figure>
+<p>$ lim_{x \to \infty}\exp(-x) = 0$</p>
+<h5><span id="superscript">Superscript</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">y^2^ = 4</div></pre></td></tr></table></figure>
+<p>y^2^ = 4</p>
+<h5><span id="subscript">Subscript</span></h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">H~2~O</div></pre></td></tr></table></figure>
+<p>H~2~O</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdwon</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vim简单命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -208,11 +361,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -290,15 +443,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		
 		</ul>
@@ -371,11 +524,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -754,15 +907,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">备份</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">备份</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,7 +919,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
