@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>Archives: 2017 | MiniHippo&#39;s Blog</title>
+  <title>DistributedSystem_Introduction | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MiniHippo&#39;s Blog">
-<meta property="og:url" content="http://minihippo.github.io/archives/2017/index.html">
+  <meta name="description" content="1.Introduction1.1 DefinitionDistributed System: a collection of autonomous computing elements that appears to users as a single coherent system.">
+<meta name="keywords" content="分布式系统,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DistributedSystem_Introduction">
+<meta property="og:url" content="http://minihippo.github.io/2017/09/27/DistributedSystem-Introduction/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta property="og:description" content="1.Introduction1.1 DefinitionDistributed System: a collection of autonomous computing elements that appears to users as a single coherent system.">
+<meta property="og:image" content="http://minihippo.github.io/pic/middleware.png">
+<meta property="og:updated_time" content="2017-09-27T12:35:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MiniHippo&#39;s Blog">
-<meta name="twitter:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta name="twitter:title" content="DistributedSystem_Introduction">
+<meta name="twitter:description" content="1.Introduction1.1 DefinitionDistributed System: a collection of autonomous computing elements that appears to users as a single coherent system.">
+<meta name="twitter:image" content="http://minihippo.github.io/pic/middleware.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -172,36 +176,152 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-DistributedSystem-Introduction" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/27/DistributedSystem-Introduction/" class="archive-article-date">
-  	<time datetime="2017-09-27T12:26:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/27/DistributedSystem-Introduction/">DistributedSystem_Introduction</a>
+    <h1 class="article-title" itemprop="name">
+      DistributedSystem_Introduction
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/27/DistributedSystem-Introduction/" class="archive-article-date">
+  	<time datetime="2017-09-27T12:26:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p></p><p></p>
+<h1><span id="1introduction">1.Introduction</span></h1><h3><span id="11-definition">1.1 Definition</span></h3><p><em>Distributed System</em>: a collection of autonomous computing elements that appears to users as a single coherent system.</p>
+<a id="more"></a>
+<p><em>Characteristics</em>:</p>
+<ul>
+<li><strong>Hidden</strong>: difference between computers and the way they communicate are hidden from users.</li>
+<li><strong>Consistent &amp; Uniform</strong>: users interact with it in a consistent and uniform way,regardless of where and when.  </li>
+<li>Easy to expand</li>
+<li>Continuously avaliable</li>
+</ul>
+<p><em>As Middleware</em>:</p>
+<p><img src="/pic/middleware.png" alt="middleware"></p>
+<h3><span id="12-goals">1.2 Goals</span></h3><p><strong>resources available, transparency, openness, scalablility</strong></p>
+<h5><span id="121-resources-available">1.2.1 resources available</span></h5><p>Users get resources conveniently.</p>
+<h5><span id="122-transparency">1.2.2 transparency</span></h5><p><em>Definition</em>:  </p>
+<ul>
+<li>progress and resources sperated on multi-computers is hidden</li>
+<li>present itself to users and applications as if a <strong>single</strong> computer system.</li>
+</ul>
+<p><em>Type</em>:</p>
+<table>
+<thead>
+<tr>
+<th>Transparency</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access</td>
+<td>Hide differences in data representation and how a resource is accessed</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>Hide where a resource is (implemented by using logical naming )</td>
+</tr>
+<tr>
+<td>Migration</td>
+<td>Hide that a resource move to another location (not affect how a resource is acessed)</td>
+</tr>
+<tr>
+<td>Relocation</td>
+<td>Hide that a resource move to another location while in user</td>
+</tr>
+<tr>
+<td>Replication</td>
+<td>Hide that a resource is replicated</td>
+</tr>
+<tr>
+<td>Concurrency</td>
+<td>Hide that a resource is shared by several competitive users</td>
+</tr>
+<tr>
+<td>Failure</td>
+<td>Hide the failure and recovery of a resource</td>
+</tr>
+</tbody>
+</table>
+<h5><span id="123-openness">1.2.3 openness</span></h5><p><em>Definition</em>: ^1.a system that offers services according to standard rules that ^2.^ describe the syntax and semantics of those services.</p>
+<ul>
+<li>Well-defined interface</li>
+<li>Portability of applications</li>
+<li>Easy interoperability (互操作)</li>
+</ul>
+<h5><span id="124-scalability">1.2.4 scalability</span></h5><p><em>Type</em>:</p>
+<ul>
+<li>Size scalability: number of users and processes</li>
+<li>Geographical scalability: maxinum distance between nodes</li>
+<li>Administrative scalability: easy to manage number of administrative domains</li>
+</ul>
+<h3><span id="13-types-of-distributed-systems">1.3 Types of Distributed Systems</span></h3><p>Distributed  computing systems, distributed information systems, distributed pervasive systems.</p>
+<h5><span id="131-distributed-computing-system">1.3.1 distributed computing system</span></h5><h6><span id="1311-cluster-computing">1.3.1.1 cluster computing</span></h6><ul>
+<li>a group of high-end systems connected through a LAN</li>
+<li>homogeneity 同构: OS, hardware</li>
+<li>single managing node</li>
+</ul>
+<h6><span id="1312-grid-computing">1.3.1.2 grid computing</span></h6><ul>
+<li>dispersed across several domains</li>
+<li>heterogeneous</li>
+<li>easily span a wide-area network</li>
+</ul>
+<h5><span id="132-distributed-information-system">1.3.2 distributed information system</span></h5><ul>
+<li>all or none of the requests will be executed </li>
+<li>ACID</li>
+<li>transaction processing monitor</li>
+</ul>
+<h5><span id="133-distributed-pervasive-system">1.3.3 distributed pervasive system</span></h5><ul>
+<li>nodes are small, mobile, and often embedded in a larger system</li>
+<li>Ubiquitous computing systems</li>
+<li>mobile computing systems</li>
+<li>Sensor networks</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -217,359 +337,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/09/27/DistributedSystem-Introduction/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/26/周记17-09-25/" class="archive-article-date">
-  	<time datetime="2017-09-26T12:26:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/26/周记17-09-25/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">周记17.09.25</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/26/周记17-09-25/">周记17.09.25</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">周记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">1.Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.1 Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.2 Goals</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.0.1.</span> <span class="toc-text">1.2.1 resources available</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.0.2.</span> <span class="toc-text">1.2.2 transparency</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.0.3.</span> <span class="toc-text">1.2.3 openness</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.0.4.</span> <span class="toc-text">1.2.4 scalability</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.</span> <span class="toc-text">1.3 Types of Distributed Systems</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.0.1.</span> <span class="toc-text">1.3.1 distributed computing system</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.0.1.1.</span> <span class="toc-text">1.3.1.1 cluster computing</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.0.1.2.</span> <span class="toc-text">1.3.1.2 grid computing</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.0.2.</span> <span class="toc-text">1.3.2 distributed information system</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.0.3.</span> <span class="toc-text">1.3.3 distributed pervasive system</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/26/markdown/" class="archive-article-date">
-  	<time datetime="2017-09-26T11:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/26/markdown/">markdown语法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdwon</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/24/vim简单命令/" class="archive-article-date">
-  	<time datetime="2017-09-24T15:30:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/24/vim简单命令/">vim简单命令</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vim</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/23/hexo搭建指南/" class="archive-article-date">
-  	<time datetime="2017-09-23T00:29:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/23/hexo搭建指南/">hexo搭建指南</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/git使用指南/" class="archive-article-date">
-  	<time datetime="2017-09-18T13:44:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/git使用指南/">git使用指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/周记17-09-18/" class="archive-article-date">
-  	<time datetime="2017-09-18T11:09:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/周记17-09-18/">周记17.09.18-24</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">周记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/碎碎念/" class="archive-article-date">
-  	<time datetime="2017-09-18T08:24:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/碎碎念/">碎碎念</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/17/hello-world/" class="archive-article-date">
-  	<time datetime="2017-09-17T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -592,8 +472,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
