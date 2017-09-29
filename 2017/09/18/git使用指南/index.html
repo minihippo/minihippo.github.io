@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="基本概念">
 <meta property="og:image" content="http://minihippo.github.io/picture/git结构.png">
-<meta property="og:updated_time" content="2017-09-22T12:52:33.000Z">
+<meta property="og:updated_time" content="2017-09-29T11:49:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git使用指南">
 <meta name="twitter:description" content="基本概念">
@@ -226,7 +226,7 @@
 <p></p><p></p>
 <h3><span id="远程仓库">远程仓库</span></h3><p>1.ssh加密<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> ssh-keygen -t rsa -C 'gengxiaoyu1996@gmail.com'</div><div class="line">Generating public/private rsa key pair.</div></pre></td></tr></table></figure></p>
 <p>2.<code>remote add</code>添加远程仓库地址<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git remote add origin https://github.com/minihippo/LeetCode.git</div></pre></td></tr></table></figure></p>
-<p>3.<code>push</code>提交内容<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git push -u origin master</div></pre></td></tr></table></figure></p>
+<p>3.<code>push</code>提交内容<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git push -u origin master  //远程主机名 分支名</div><div class="line"><span class="meta">$</span> git push -u origin branchname:branchname</div></pre></td></tr></table></figure></p>
 <p>4.<code>remote</code>查看当前远程库<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git remote</div><div class="line">origin</div><div class="line"><span class="meta">$</span> git remote -v</div><div class="line">origin	https://github.com/minihippo/LeetCode.git (fetch)</div><div class="line">origin	https://github.com/minihippo/LeetCode.git (push)</div></pre></td></tr></table></figure></p>
 <p>5.提取远程库内容</p>
 <ul>
@@ -557,14 +557,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -573,11 +565,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
