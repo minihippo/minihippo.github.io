@@ -6,17 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>Tag: vim | MiniHippo&#39;s Blog</title>
+  <title>DistributedSystem_Architecture | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MiniHippo&#39;s Blog">
-<meta property="og:url" content="http://minihippo.github.io/tags/vim/index.html">
+  <meta name="description" content="2. ArchitecturesTerminology:  Component:  a modular unit with well-defined interfaces and is replaceable within its environment. Connector: mediating communication,coordination or cooperation among co">
+<meta name="keywords" content="分布式系统,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DistributedSystem_Architecture">
+<meta property="og:url" content="http://minihippo.github.io/2017/10/01/DistributedSystem-Architecture/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta property="og:description" content="2. ArchitecturesTerminology:  Component:  a modular unit with well-defined interfaces and is replaceable within its environment. Connector: mediating communication,coordination or cooperation among co">
+<meta property="og:image" content="http://minihippo.github.io/pic/layered.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/objected-based.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/shared-data.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/event-based.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/clientservermodel.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/threelayerapplication.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/threelayergoogleinstance.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/twotiered.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/superpeers.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/edge-serversystem.png">
+<meta property="og:image" content="http://minihippo.github.io/pic/bittorrent.png">
+<meta property="og:updated_time" content="2017-10-01T06:38:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MiniHippo&#39;s Blog">
-<meta name="twitter:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta name="twitter:title" content="DistributedSystem_Architecture">
+<meta name="twitter:description" content="2. ArchitecturesTerminology:  Component:  a modular unit with well-defined interfaces and is replaceable within its environment. Connector: mediating communication,coordination or cooperation among co">
+<meta name="twitter:image" content="http://minihippo.github.io/pic/layered.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -172,68 +186,274 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-DistributedSystem-Architecture" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/24/vim简单命令/" class="archive-article-date">
-  	<time datetime="2017-09-24T15:30:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/24/vim简单命令/">vim简单命令</a>
+    <h1 class="article-title" itemprop="name">
+      DistributedSystem_Architecture
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/10/01/DistributedSystem-Architecture/" class="archive-article-date">
+  	<time datetime="2017-10-01T06:13:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1><span id="2-architectures">2. Architectures</span></h1><p><em>Terminology</em>:</p>
+<ul>
+<li>Component:  a modular unit with well-defined interfaces and is replaceable within its environment.</li>
+<li>Connector: mediating communication,coordination or cooperation among components</li>
+</ul>
+<a id="more"></a>
+<p>Architecture style is formulated in terms of components, the way that components are connected to each other, the data exchanged between components. </p>
+<h3><span id="21-architecture-styles">2.1 Architecture Styles</span></h3><p><em>Divided into</em>:$^1$ layered architecture, $^2$objected-based architecture, $^3$data-centered architecture, $^4$event-based architecture.</p>
+<ul>
+<li><p>Layered architecture   </p>
+<p>used for client-server system, the most important.</p>
+<p><img src="/pic/layered.png" width="300"></p>
+</li>
+<li><p>Objected-based architecture   </p>
+<p>used for distributed object systems, processes communication by method call, the most important.</p>
+<p><img src="/pic/objected-based.png" width="300"></p>
+</li>
+<li><p>Data-centered architecture   </p>
+<p>repository for process communication,  decoupled in space.</p>
+<p><img src="/pic/shared-data.png" width="300"></p>
+</li>
+<li><p>Event-based architecture </p>
+<p>process communicated by event propagation. </p>
+<p>The following is shared data space architecture. It is combined by data-centered and event-based architectures, decoupled in space and time.</p>
+<p><img src="/pic/event-based.png" width="300"></p>
+</li>
+</ul>
+<h3><span id="22-system-architecture">2.2 System Architecture</span></h3><p><em>Definition</em>: an <strong>instance</strong> of a software architecture which realizes $^1$the <del>logical</del> software component, $^2$their <del>logical</del> interaction, and $^3$their physical placement.</p>
+<p><em>Types</em>: centralized architectures, decentralized architectures, hybrid architecture.</p>
+<h4><span id="221-centralized-architecture">2.2.1 Centralized Architecture</span></h4><p>Basic Client-Server Model: a single server(physical) implements most of the software components while remote clients can access that server.</p>
+<p><em>Characteristics</em>:</p>
+<ul>
+<li>processes in servers offer services.   //single point of failure,bottleneck,scaling difficult</li>
+<li>process in clients user services. (processes in a distributed system divided into the metioed two groups)</li>
+<li>clients and servers can be on different machines.</li>
+<li>clients follow requests/reply model when using services.</li>
+</ul>
+<p><img src="/pic/clientservermodel.png" width="500"></p>
+<p><em>Expension:</em> cause single point or multi points sufferred pressure</p>
+<ul>
+<li>proxy server: as an intermediate node betwwen servers and clients</li>
+<li>applets: clients download applet from servers, and check on local system</li>
+</ul>
+<h5><span id="2211-application-layering">2.2.1.1 Application Layering</span></h5><p><em>Traditional three-layered view:</em></p>
+<ul>
+<li>User-interface layer</li>
+<li>Processing layer（处理层）</li>
+<li>Data layer</li>
+</ul>
+<p><img src="/pic/threelayerapplication.png" width="500"></p>
+<p>For instance, internet search engine.</p>
+<p><img src="/pic/threelayergoogleinstance.png" width="500"></p>
+<p>In general, it is possible to distribute c/s model into multi physical machines.</p>
+<h5><span id="2212-multitiered-architectures">2.2.1.2 Multitiered Architectures</span></h5><p>Pre: single-tiered: dumb terminal/mainframe, dumb client do nothing.</p>
+<p>Two-tiered: client/single server, like the following pic(thin-&gt;fat client)</p>
+<p><img src="/pic/twotiered.png" width="500"></p>
+<p>Three-tiered: each layer on separate machine. As 2.2.2.1 mentioned, application layer can be on an extra physical machine.  </p>
+<p>In a word, all the mentioned above is belong to vertical distribution, different layers distributed on different machines.</p>
+<h4><span id="222-decentralized-architecture">2.2.2 Decentralized Architecture</span></h4><p>A logical server may be physically split up into logically equivalent parts(balancing the load). </p>
+<p>It is belong to horizontal distribution.</p>
+<p>peer to peer system:</p>
+<ul>
+<li><em>Types divided by overlay network style</em>: structured, unstructured. </li>
+<li>Data is routed over connections setup between the nodes.</li>
+</ul>
+<h5><span id="2221-structured-peer-peer">2.2.2.1 Structured Peer-Peer</span></h5><p><em>Organization:</em> nodes are organized following a specific distributed data structure/topology. The protocol ensures any node can search the network for a resource.</p>
+<p><em>Examples</em>: chord system, the nodes in a structured overlay network such as a logical ring (created by Distributed Hash Table DHT) and make specific nodes responsible for services based only on their ID. </p>
+<h5><span id="2222-unstructured-peer-peer">2.2.2.2 Unstructured Peer-Peer</span></h5><p><em>Organization</em>：nodes are organized as a random overlay ntework. Each node maintains a list of neighbors which are randomly chosen live node from the current set of nodes.</p>
+<p>Flooding: node u sends a lookup query to all of its neighbors.</p>
+<h5><span id="2223-superpeers">2.2.2.3 Superpeers</span></h5><p>An expansion of peer-to-peer system.</p>
+<p><em>Characteristics</em>: select a few nodes to do specific work</p>
+<ul>
+<li>Superpeers maintain an index for search</li>
+<li>Superpeers are able to setup connections</li>
+<li>Regular peers connected as a client to a superpeer. All communication from and to a regular peer proceeds through that peer’s associated superpeer.</li>
+</ul>
+<p><img src="/pic/superpeers.png" width="300"></p>
+<h4><span id="23-hybrid-system-architecture">2.3 Hybrid System Architecture</span></h4><p>Client-server combined with P2P</p>
+<ul>
+<li><p>Edge-server architectures, used for content delivery networks</p>
+<p><img src="/pic/edge-serversystem.png" width="600"></p>
+</li>
+<li><p>Collaborative distributed system, bit torrent</p>
+<p><img src="/pic/bittorrent.png" width="600"></p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式系统</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vim</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/10/01/DistributedSystem-Architecture/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/09/27/DistributedSystem-Introduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DistributedSystem_Introduction</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">2. Architectures</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">2.1 Architecture Styles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.2 System Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">2.2.1 Centralized Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.1.</span> <span class="toc-text">2.2.1.1 Application Layering</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.2.</span> <span class="toc-text">2.2.1.2 Multitiered Architectures</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">2.2.2 Decentralized Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.1.</span> <span class="toc-text">2.2.2.1 Structured Peer-Peer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.2.</span> <span class="toc-text">2.2.2.2 Unstructured Peer-Peer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.3.</span> <span class="toc-text">2.2.2.3 Superpeers</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">2.3 Hybrid System Architecture</span></a></li></ol></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -256,9 +476,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
