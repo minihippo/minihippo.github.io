@@ -194,27 +194,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="regression">Regression</span></h1><p><strong>Background</strong>:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。<br>               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。   </p>
-<p><strong>Steps:</strong><br>① Model: a set of function<br>　　linear $y = b+w*x_{cp}$,  bias &amp; weight<br>② Goodness of function: train data and set loss function $L$ to evaluate goodness of $f$.<br>　　 $L(f) = \sum_{n=1}^{10}(\hat{y}^n - f(x_{cp}^n))^2$,  input a function, output how bad it is.<br>　　sum over examples to calculate variance; $\hat{y}^n$—true value<br>③ Best function: gradient descent<br>　　pick the best function $f^* = arg min_f L(f)$, related to $w,b$</p>
-<p><u><strong>How to find the best function?</strong></u></p>
-<h3><span id="gradient-descent">Gradient Descent</span></h3><h5><span id="1one-parameter">1.one parameter</span></h5><p><strong>pre</strong>: consider $L$ with only one parameter $w$  </p>
-<p><strong>steps</strong>:<br>1.randomly pick an intial value $w^0$<br>2.compute $w^0$处导数:$$\frac{dL}{dw}|_{w=w^0}$$<br>3.update $$w^1 = w^0 -\eta\frac{dL}{dw}|_{w=w^0}$$<br>$\eta$ is learning rate/step length</p>
-<p><strong>一维梯度下降过程</strong>：</p>
-<p><img src="../ML-ReadingNotes/2-1.png" style="zoom:50%"><br>梯度下降方法由于初始点的选择常常只能找到局部最优点，非全局最优解。<strong>回归问题</strong>由于是凸面的因此局部最优就是全局最优。</p>
-<h5><span id="2two-parameter">2.two parameter</span></h5><p><strong>pre</strong>: $f^* = arg min_f L(f)$　 =&gt;　 $ w^*,b^* = arg min_(w,b) L(w,b)$  </p>
-<p><strong>steps</strong>:<br>1.randomly pick an intial value $w^0, b^0$<br>2.compute $w^0, b^0$处偏导数$$\frac{\partial L}{\partial w}|_{w=w^0,b=b^0},\frac{\partial L}{\partial b}|_{w=w^0,b=b^0}$$</p>
-<p><strong>gradient</strong>: $$\nabla L(w, b)=[\frac{\partial L}{\partial w},\frac{\partial L}{\partial b} ]^T$$</p>
-<p><strong>二维梯度下降过程</strong>：</p>
-<p><img src="../ML-ReadingNotes/2-2.png" style="zoom:50%"></p>
-<h5><span id="3-梯度收敛的情况">3. 梯度收敛的情况</span></h5><p>　　极小值、鞍点<br><img src="../ML-ReadingNotes/2-3.png" style="zoom:50%"><br>因此收敛并不代表找到了最小值或极小值。</p>
-<h3><span id="model-generalization">Model Generalization</span></h3><p>比较了一次、二次、三次、四次、五次式模型对应的训练误差和泛化误差，它们之间的关系如下：</p>
-<p><img src="../ML-ReadingNotes/2-4.png" style="zoom:50%"><br>复杂模型会包含简单模型，因此也更有可能包含最优解。</p>
-<h4><span id="泛化性能差">泛化性能差</span></h4><p>redesign the model:  $y = b+ \sum w_i x_i$ , consider more hidden factors,<br>　　　　　　　　　　模型中也可以考虑属性的平方</p>
-<h4><span id="overfitting">overfitting</span></h4><p><strong>def</strong>: a more complex model does not always lead to a better performance on testing data.   </p>
-<p><strong>solution</strong>: Regularization　　 $\lambda\sum(w_i)^2 $   </p>
-<p><strong>Regularization</strong><br>origin loss：$$L = \sum_n (\hat{y}^n - (b+\sum w_ix_i))^2,$$<br>只考虑预测值和真实值的误差<br>improved loss：$$L = \sum_n (\hat{y}^n - (b+\sum w_ix_i))^2+\lambda\sum(w_i)^2,$$<br>考虑了weight的误差.当weight越小，function受到输入数值大小的影响越小，也就越平滑<br>$$y+\sum w_i \Delta x_i = b + \sum (x_i + \Delta x_i) $$<br>因此$\lambda$越大，考虑smooth就越多，training error就越少。</p>
-<p><img src="../ML-ReadingNotes/2-5.png" style="zoom:40%"></p>
-
+        <h1 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h1><p><strong>Background</strong>:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。<br>               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。   </p>
+        
+          <a class="article-more-a" href="/2018/01/23/ML-Reading-Notes-02/#more">more >></a>
+        
       
 
       
@@ -227,11 +210,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
         		</li>
       		
 		</ul>
@@ -303,11 +286,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
         		</li>
       		
 		</ul>
@@ -800,11 +783,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vim</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vim</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		
 		</ul>
@@ -1116,7 +1099,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1124,11 +1111,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1168,6 +1151,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
@@ -1176,11 +1163,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1189,10 +1176,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
             
             <div class="clearfix"></div>
