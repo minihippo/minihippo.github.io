@@ -9,7 +9,7 @@
   <title>ML Reading Notes-02 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
-<meta name="keywords" content="ML,notes">
+<meta name="keywords" content="notes,ML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML Reading Notes-02">
 <meta property="og:url" content="http://minihippo.github.io/2018/01/23/ML-Reading-Notes-02/index.html">
@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-3.png">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-4.png">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-5.png">
-<meta property="og:updated_time" content="2018-01-23T11:11:43.041Z">
+<meta property="og:updated_time" content="2018-01-23T13:21:00.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML Reading Notes-02">
 <meta name="twitter:description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
@@ -200,7 +200,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="regression">Regression</span></h1><p><strong>Background</strong>:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。<br>               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。   </p>
+        <h2><span id="regression">Regression</span></h2><p><strong>Background</strong>:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。<br>               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。   </p>
 <a id="more"></a>
 <p><strong>Steps:</strong><br>① Model: a set of function<br>　　linear $y = b+w*x_{cp}$,  bias &amp; weight<br>② Goodness of function: train data and set loss function $L$ to evaluate goodness of $f$.<br>　　 $L(f) = \sum_{n=1}^{10}(\hat{y}^n - f(x_{cp}^n))^2$,  input a function, output how bad it is.<br>　　sum over examples to calculate variance; $\hat{y}^n$—true value<br>③ Best function: gradient descent<br>　　pick the best function $f^* = arg min_f L(f)$, related to $w,b$</p>
 <p><u><strong>How to find the best function?</strong></u></p>
@@ -260,11 +260,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
         		</li>
       		
 		</ul>
@@ -363,7 +363,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.0.1.</span> <span class="toc-text">1.one parameter</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.0.2.</span> <span class="toc-text">2.two parameter</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.0.3.</span> <span class="toc-text">3. 梯度收敛的情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">Model Generalization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">泛化性能差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">overfitting</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.one parameter</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.two parameter</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3. 梯度收敛的情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Model Generalization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">泛化性能差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">overfitting</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -492,11 +492,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -504,7 +500,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,10 +544,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
@@ -556,19 +552,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>
