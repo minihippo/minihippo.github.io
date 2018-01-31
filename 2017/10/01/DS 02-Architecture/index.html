@@ -9,28 +9,16 @@
   <title>DS 02-Architecture | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="2. ArchitecturesTerminology:  Component:  a modular unit with well-defined interfaces and is replaceable within its environment. Connector: mediating communication,coordination or cooperation among co">
-<meta name="keywords" content="notes,分布式系统,笔记,DistributedSystem">
+<meta name="keywords" content="分布式系统,笔记,notes,DistributedSystem">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DS 02-Architecture">
 <meta property="og:url" content="http://minihippo.github.io/2017/10/01/DS 02-Architecture/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="2. ArchitecturesTerminology:  Component:  a modular unit with well-defined interfaces and is replaceable within its environment. Connector: mediating communication,coordination or cooperation among co">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/layered.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/objected-based.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/shared-data.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/event-based.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/clientservermodel.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/threelayerapplication.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/threelayergoogleinstance.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/twotiered.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/superpeers.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/edge-serversystem.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DS/bittorrent.png">
-<meta property="og:updated_time" content="2018-01-24T13:36:55.149Z">
+<meta property="og:updated_time" content="2018-01-31T08:48:39.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DS 02-Architecture">
 <meta name="twitter:description" content="2. ArchitecturesTerminology:  Component:  a modular unit with well-defined interfaces and is replaceable within its environment. Connector: mediating communication,coordination or cooperation among co">
-<meta name="twitter:image" content="http://minihippo.github.io/picture/DS/layered.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -206,93 +194,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="2-architectures">2. Architectures</span></h2><p><em>Terminology</em>:</p>
-<ul>
-<li>Component:  a modular unit with well-defined interfaces and is replaceable within its environment.</li>
-<li>Connector: mediating communication,coordination or cooperation among components</li>
-</ul>
-<a id="more"></a>
-<p>Architecture style is formulated in terms of components, the way that components are connected to each other, the data exchanged between components. </p>
-<h3><span id="21-architecture-styles">2.1 Architecture Styles</span></h3><p><em>Divided into</em>:$^1$ layered architecture, $^2$objected-based architecture, $^3$data-centered architecture, $^4$event-based architecture.</p>
-<ul>
-<li><p>Layered architecture   </p>
-<p>used for client-server system, the most important.</p>
-<p><img src="/picture/DS/layered.png" width="300"></p>
-</li>
-<li><p>Objected-based architecture   </p>
-<p>used for distributed object systems, processes communication by method call, the most important.</p>
-<p><img src="/picture/DS/objected-based.png" width="300"></p>
-</li>
-<li><p>Data-centered architecture   </p>
-<p>repository for process communication,  decoupled in space.</p>
-<p><img src="/picture/DS/shared-data.png" width="300"></p>
-</li>
-<li><p>Event-based architecture </p>
-<p>process communicated by event propagation. </p>
-<p>The following is shared data space architecture. It is combined by data-centered and event-based architectures, decoupled in space and time.</p>
-<p><img src="/picture/DS/event-based.png" width="300"></p>
-</li>
-</ul>
-<h3><span id="22-system-architecture">2.2 System Architecture</span></h3><p><em>Definition</em>: an <strong>instance</strong> of a software architecture which realizes $^1$the <del>logical</del> software component, $^2$their <del>logical</del> interaction, and $^3$their physical placement.</p>
-<p><em>Types</em>: centralized architectures, decentralized architectures, hybrid architecture.</p>
-<h4><span id="221-centralized-architecture">2.2.1 Centralized Architecture</span></h4><p>Basic Client-Server Model: a single server(physical) implements most of the software components while remote clients can access that server.</p>
-<p><em>Characteristics</em>:</p>
-<ul>
-<li>processes in servers offer services.   //single point of failure,bottleneck,scaling difficult</li>
-<li>process in clients user services. (processes in a distributed system divided into the metioed two groups)</li>
-<li>clients and servers can be on different machines.</li>
-<li>clients follow requests/reply model when using services.</li>
-</ul>
-<p><img src="/picture/DS/clientservermodel.png" width="500"></p>
-<p><em>Expension:</em> cause single point or multi points sufferred pressure</p>
-<ul>
-<li>proxy server: as an intermediate node betwwen servers and clients</li>
-<li>applets: clients download applet from servers, and check on local system</li>
-</ul>
-<h5><span id="2211-application-layering">2.2.1.1 Application Layering</span></h5><p><em>Traditional three-layered view:</em></p>
-<ul>
-<li>User-interface layer</li>
-<li>Processing layer（处理层）</li>
-<li>Data layer</li>
-</ul>
-<p><img src="/picture/DS/threelayerapplication.png" width="500"></p>
-<p>For instance, internet search engine.</p>
-<p><img src="/picture/DS/threelayergoogleinstance.png" width="500"></p>
-<p>In general, it is possible to distribute c/s model into multi physical machines.</p>
-<h5><span id="2212-multitiered-architectures">2.2.1.2 Multitiered Architectures</span></h5><p>Pre: single-tiered: dumb terminal/mainframe, dumb client do nothing.</p>
-<p>Two-tiered: client/single server, like the following pic(thin-&gt;fat client)</p>
-<p><img src="/picture/DS/twotiered.png" width="500"></p>
-<p>Three-tiered: each layer on separate machine. As 2.2.2.1 mentioned, application layer can be on an extra physical machine.  </p>
-<p>In a word, all the mentioned above is belong to vertical distribution, different layers distributed on different machines.</p>
-<h4><span id="222-decentralized-architecture">2.2.2 Decentralized Architecture</span></h4><p>A logical server may be physically split up into logically equivalent parts(balancing the load). </p>
-<p>It is belong to horizontal distribution.</p>
-<p>peer to peer system:</p>
-<ul>
-<li><em>Types divided by overlay network style</em>: structured, unstructured. </li>
-<li>Data is routed over connections setup between the nodes.</li>
-</ul>
-<h5><span id="2221-structured-peer-peer">2.2.2.1 Structured Peer-Peer</span></h5><p><em>Organization:</em> nodes are organized following a specific distributed data structure/topology. The protocol ensures any node can search the network for a resource.</p>
-<p><em>Examples</em>: chord system, the nodes in a structured overlay network such as a logical ring (created by Distributed Hash Table DHT) and make specific nodes responsible for services based only on their ID. </p>
-<h5><span id="2222-unstructured-peer-peer">2.2.2.2 Unstructured Peer-Peer</span></h5><p><em>Organization</em>：nodes are organized as a random overlay ntework. Each node maintains a list of neighbors which are randomly chosen live node from the current set of nodes.</p>
-<p>Flooding: node u sends a lookup query to all of its neighbors.</p>
-<h5><span id="2223-superpeers">2.2.2.3 Superpeers</span></h5><p>An expansion of peer-to-peer system.</p>
-<p><em>Characteristics</em>: select a few nodes to do specific work</p>
-<ul>
-<li>Superpeers maintain an index for search</li>
-<li>Superpeers are able to setup connections</li>
-<li>Regular peers connected as a client to a superpeer. All communication from and to a regular peer proceeds through that peer’s associated superpeer.</li>
-</ul>
-<p><img src="/picture/DS/superpeers.png" width="300"></p>
-<h4><span id="23-hybrid-system-architecture">2.3 Hybrid System Architecture</span></h4><p>Client-server combined with P2P</p>
-<ul>
-<li><p>Edge-server architectures, used for content delivery networks</p>
-<p><img src="/picture/DS/edge-serversystem.png" width="600"></p>
-</li>
-<li><p>Collaborative distributed system, bit torrent</p>
-<p><img src="/picture/DS/bittorrent.png" width="600"></p>
-</li>
-</ul>
-
+        <script src="/js/crypto-js.js"></script><script>
+function doDecrypt(pwd, onError) {
+	console.log("in doDecrypt");
+	var txt = document.getElementById("enc_content").innerHTML;
+	var plantext;
+	try {
+	  	var bytes = CryptoJS.AES.decrypt(txt, pwd);
+		plaintext = bytes.toString(CryptoJS.enc.Utf8);
+	} catch(err) {
+		if(onError) {onError(err);}
+		return;
+	}
+	document.getElementById("enc_content").innerHTML = plaintext;
+	document.getElementById("enc_content").style.display = "block";
+   document.getElementById("enc_passwd").style.display = "none";
+}
+</script>
+<div id="enc_content" style="display:none">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</div><div id="enc_passwd"> <input id="enc_pwd_input" type="text" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
+<script>
+var onError = function(error) {
+	document.getElementById("enc_error").innerHTML = "password error!"
+};
+function decrypt() {
+var passwd = document.getElementById("enc_pwd_input").value;
+console.log(passwd);
+doDecrypt(passwd, onError);
+}
+</script>
+</div>
       
 
       
@@ -331,15 +261,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式系统</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -423,8 +353,8 @@
     </a>
   
   
-    <a href="/2017/09/27/DistributedSystem-Introduction/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">DistributedSystem_Introduction</div>
+    <a href="/2017/09/27/DS 01-Introduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DS 01-Introduction</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -451,7 +381,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">2. Architectures</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">2.1 Architecture Styles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">2.2 System Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.2.1 Centralized Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.2.1.1 Application Layering</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">2.2.1.2 Multitiered Architectures</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2.2 Decentralized Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">2.2.2.1 Structured Peer-Peer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.2.2.2 Unstructured Peer-Peer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">2.2.2.3 Superpeers</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 Hybrid System Architecture</span></a></li></ol></li></ol></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -578,14 +508,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -594,7 +516,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,15 +564,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,15 +572,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="基本概念">
 <meta property="og:image" content="http://minihippo.github.io/picture/git结构.png">
-<meta property="og:updated_time" content="2017-10-18T11:29:44.000Z">
+<meta property="og:updated_time" content="2018-01-31T07:32:02.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git使用指南">
 <meta name="twitter:description" content="基本概念">
@@ -196,7 +196,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="基本概念">基本概念</span></h2><p><img src="/picture/git结构.png" alt="git结构"></p>
+        <h2><span id="基本概念">基本概念</span></h2><p><img src="/picture/git结构.png" ],="" style="zoom:50%"></p>
 <a id="more"></a>
 <ul>
 <li>当工作区修改的文件执行<code>git add</code>命令后，暂存区的目录树会被更新，并且修改文件内容会被写入到对象库的一个新的对象中（对象的id被记录到暂存区的文件索引中）。</li>
@@ -206,9 +206,9 @@
 <h2><span id="安装配置">安装配置</span></h2><p>git config —global user.name/email 配置用户主目录下的信息，用于识别用户</p>
 <p>for mac: user.name <em>minihippo</em><br>         user.email <em>gengxiaoyu1996@gmail.com</em></p>
 <ul>
-<li>查看配置信息</li>
+<li>查看配置信息<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git config --list</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git config --list</div></pre></td></tr></table></figure>
 <h2><span id="创建版本库">创建版本库</span></h2><ol>
 <li><p><code>git init</code>进入目录 </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git init</div><div class="line">Initialized empty Git repository in /Users/shawygeng/Project/blog/.git/</div></pre></td></tr></table></figure>
@@ -263,7 +263,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git branch</div></pre></td></tr></table></figure>
 </li>
 <li><p><code>checkout</code>切换分支</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout branchname</div><div class="line"><span class="meta">$</span> git checkout -b branchname  //创建新分支并切换到当前目录下</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout branchname</div><div class="line"><span class="meta">$</span> git checkout -b branchname  //创建新分支并切换到当前目录下</div><div class="line"><span class="meta">$</span> git checkout -b branchname origin/branch  //创建远程分支到本地分支ß</div></pre></td></tr></table></figure>
 </li>
 <li><p><code>merge</code>合并分支</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git merge &lt;branchname&gt;  //合并分支branchname到当前分支</div></pre></td></tr></table></figure>
@@ -624,14 +624,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -640,7 +632,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,15 +680,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,15 +688,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>

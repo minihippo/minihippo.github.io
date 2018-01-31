@@ -9,13 +9,13 @@
   <title>hexo搭建指南 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="安装配置precondition: nodejs ——生成静态页面 1.npm安装   1$ npm install hexo-cli -g">
-<meta name="keywords" content="备份,hexo,教程">
+<meta name="keywords" content="备份,教程,hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo搭建指南">
 <meta property="og:url" content="http://minihippo.github.io/2017/09/23/hexo搭建指南/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="安装配置precondition: nodejs ——生成静态页面 1.npm安装   1$ npm install hexo-cli -g">
-<meta property="og:updated_time" content="2017-09-24T15:41:45.000Z">
+<meta property="og:updated_time" content="2018-01-31T07:34:56.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo搭建指南">
 <meta name="twitter:description" content="安装配置precondition: nodejs ——生成静态页面 1.npm安装   1$ npm install hexo-cli -g">
@@ -194,11 +194,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p></p><p></p>
-<h3><span id="安装配置">安装配置</span></h3><p><em>precondition</em>: nodejs ——生成静态页面</p>
+        <h3><span id="安装配置">安装配置</span></h3><p><em>precondition</em>: nodejs ——生成静态页面</p>
 <p>1.npm安装<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-cli -g</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p></p><p></p>
 <h3><span id="建站">建站</span></h3><p>1.初始化<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo init &lt;folder&gt;</div><div class="line"><span class="meta">$</span> cd folder</div><div class="line"><span class="meta">$</span> npm install</div></pre></td></tr></table></figure></p>
 <p>2.文件目录<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── _config.yml  //配置文件信息</div><div class="line">├── package.json  //应用程序信息</div><div class="line">├── scaffolds  //模板文件夹，当新建文章时，会按模版填充内容。可修改./post.md中的Front-matter</div><div class="line">├── source  //存放用户资源，markdown和html文件会被解析到public中。以_开头的文件名会被忽略</div><div class="line">|   ├── _drafts  </div><div class="line">|   └── _posts</div><div class="line">└── themes //主题</div></pre></td></tr></table></figure></p>
 <p>3.配置文件<code>config.yml</code></p>
@@ -209,13 +207,11 @@
 | subtitle    |             |
 | description |             |
 | author      |             |
-</code></pre><p></p><p></p>
-<h3><span id="部署">部署</span></h3><p>1.安装hexo-deployer-git，提交远程仓库<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
+</code></pre><h3><span id="部署">部署</span></h3><p>1.安装hexo-deployer-git，提交远程仓库<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
 <p>2.修改配置文件deploy部分<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy: </div><div class="line">  type: git</div><div class="line">  repo: https://github.com/minihippo/minihippo.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
 <p>3.生成静态文件<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo generate/d</div></pre></td></tr></table></figure></p>
 <p>4.启动服务器<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo server/s         //访问http://localhost:4000/</div></pre></td></tr></table></figure></p>
 <p>5.push到github命令<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo deploy/d</div></pre></td></tr></table></figure></p>
-<p></p><p></p>
 <h3><span id="写作">写作</span></h3><p>1.新建文章<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo new [layout] "pagename"  //layout in scaffolds,three kinds default</div></pre></td></tr></table></figure></p>
 <p>2.<code>&lt;!—more—&gt;</code>显示到此处截止</p>
 <p>3.草稿<code>source/_draft</code><br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo --draft  //显示草稿</div></pre></td></tr></table></figure></p>
@@ -267,12 +263,10 @@
 <p>6.<code>render</code>渲染文章</p>
 <p>7.<code>list</code>显示网站内容<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo list &lt;type&gt;  //types: page, post, route, tag, category</div><div class="line"><span class="meta">$</span> hexo list route  //显示文件夹目录</div><div class="line"><span class="meta">$</span> hexo list post</div><div class="line">INFO  Start processing</div><div class="line">INFO  周记17.09.18 encryped</div><div class="line">INFO  copy crypto-js.js to public/js/</div><div class="line">Date        Title         Path                    Category  Tags</div><div class="line">2017-09-17  Hello World   _posts/hello-world.md             hexo, 杂谈</div><div class="line">2017-09-18  碎碎念        _posts/碎碎念.md                    杂谈</div><div class="line">2017-09-18  周记17.09.18  _posts/周记17-09-18.md              周记</div><div class="line">2017-09-18  git使用指南   _posts/git使用指南.md                教程, 备份, git</div></pre></td></tr></table></figure></p>
 <p>8.关于<code>README.md</code><br>   　　一般的，readme并不需要每次渲染，并且不被归入<code>archieve</code>中。因此需要在每次渲染生成的时候跳过该文件。<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> vi public/README.md</div><div class="line">//修改配置文件</div><div class="line">skip_render: README.md</div></pre></td></tr></table></figure></p>
-<p></p><p></p>
 <h3><span id="主题">主题</span></h3><p>1.安装主题yilia<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</div></pre></td></tr></table></figure></p>
 <p>2.修改根目录配置文件<code>_config.yml</code><br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">theme: yilia</div></pre></td></tr></table></figure></p>
 <p>3.更新主题<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd themes/yilia</div><div class="line"><span class="meta">$</span> git pull</div></pre></td></tr></table></figure></p>
 <p>4.当根目录添加了git远程仓库，主题目录可用subtree管理<br>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd blog</div><div class="line"><span class="meta">$</span> git subtree add --prefix=themes/yilia http://... branchname   //添加子项目</div><div class="line"><span class="meta">$</span> git subtree pull --prefix=themes/yilia origin master //update</div></pre></td></tr></table></figure></p>
-<p></p><p></p>
 <h3><span id="plug-in">Plug-in</span></h3><p>1.某篇文档加密</p>
 <ul>
 <li><p>下载encrypt组件</p>
@@ -294,7 +288,6 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">jsonContent:</div><div class="line">    meta: false</div><div class="line">    pages: false</div><div class="line">    posts:</div><div class="line">      title: true</div><div class="line">      date: true</div><div class="line">      path: true</div><div class="line">      text: false</div><div class="line">      raw: false</div><div class="line">      content: false</div><div class="line">      slug: false</div><div class="line">      updated: false</div><div class="line">      comments: false</div><div class="line">      link: false</div><div class="line">      permalink: false</div><div class="line">      excerpt: false</div><div class="line">      categories: false</div><div class="line">      tags: true</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p></p><p></p>
 <h3><span id="reference">Reference</span></h3><ul>
 <li><a href="https://hexo.io/docs/" target="_blank" rel="external">hexo Documentation</a></li>
 </ul>
@@ -341,11 +334,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
         		</li>
       		
 		</ul>
@@ -580,14 +573,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -596,7 +581,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,15 +629,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,15 +637,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,21 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>DistributedSystem_Introduction | MiniHippo&#39;s Blog</title>
+  <title>DS 01-Introduction | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1.Introduction1.1 DefinitionDistributed System: a collection of autonomous computing elements that appears to users as a single coherent system.">
-<meta name="keywords" content="分布式系统,笔记">
+<meta name="keywords" content="分布式系统,笔记,notes,DistributedSystem">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DistributedSystem_Introduction">
-<meta property="og:url" content="http://minihippo.github.io/2017/09/27/DistributedSystem-Introduction/index.html">
+<meta property="og:title" content="DS 01-Introduction">
+<meta property="og:url" content="http://minihippo.github.io/2017/09/27/DS 01-Introduction/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="1.Introduction1.1 DefinitionDistributed System: a collection of autonomous computing elements that appears to users as a single coherent system.">
-<meta property="og:image" content="http://minihippo.github.io/pic/middleware.png">
-<meta property="og:updated_time" content="2017-10-01T06:37:28.000Z">
+<meta property="og:updated_time" content="2018-01-31T08:54:53.646Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DistributedSystem_Introduction">
+<meta name="twitter:title" content="DS 01-Introduction">
 <meta name="twitter:description" content="1.Introduction1.1 DefinitionDistributed System: a collection of autonomous computing elements that appears to users as a single coherent system.">
-<meta name="twitter:image" content="http://minihippo.github.io/pic/middleware.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -176,19 +174,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DistributedSystem-Introduction" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DS 01-Introduction" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      DistributedSystem_Introduction
+      DS 01-Introduction
     </h1>
   
 
         
-        <a href="/2017/09/27/DistributedSystem-Introduction/" class="archive-article-date">
+        <a href="/2017/09/27/DS 01-Introduction/" class="archive-article-date">
   	<time datetime="2017-09-27T12:26:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
 </a>
         
@@ -196,98 +194,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="1introduction">1.Introduction</span></h1><h3><span id="11-definition">1.1 Definition</span></h3><p><em>Distributed System</em>: a collection of autonomous computing elements that appears to users as a single coherent system.</p>
-<a id="more"></a>
-<p><em>Characteristics</em>:</p>
-<ul>
-<li><strong>Hidden</strong>: difference between computers and the way they communicate are hidden from users.</li>
-<li><strong>Consistent &amp; Uniform</strong>: users interact with it in a consistent and uniform way,regardless of where and when.  </li>
-<li>Easy to expand</li>
-<li>Continuously avaliable</li>
-</ul>
-<p><em>As Middleware</em>:</p>
-<p><img src="/pic/middleware.png" alt="middleware"></p>
-<h3><span id="12-goals">1.2 Goals</span></h3><p><strong>resources available, transparency, openness, scalablility</strong></p>
-<h4><span id="121-resources-available">1.2.1 Resources Available</span></h4><p>Users get resources conveniently.</p>
-<h4><span id="122-transparency">1.2.2 Transparency</span></h4><p><em>Definition</em>:  </p>
-<ul>
-<li>progress and resources sperated on multi-computers is hidden</li>
-<li>present itself to users and applications as if a <strong>single</strong> computer system.</li>
-</ul>
-<p><em>Type</em>:</p>
-<table>
-<thead>
-<tr>
-<th>Transparency</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Access</td>
-<td>Hide differences in data representation and how a resource is accessed</td>
-</tr>
-<tr>
-<td>Location</td>
-<td>Hide where a resource is (implemented by using logical naming )</td>
-</tr>
-<tr>
-<td>Migration</td>
-<td>Hide that a resource move to another location (not affect how a resource is acessed)</td>
-</tr>
-<tr>
-<td>Relocation</td>
-<td>Hide that a resource move to another location while in user</td>
-</tr>
-<tr>
-<td>Replication</td>
-<td>Hide that a resource is replicated</td>
-</tr>
-<tr>
-<td>Concurrency</td>
-<td>Hide that a resource is shared by several competitive users</td>
-</tr>
-<tr>
-<td>Failure</td>
-<td>Hide the failure and recovery of a resource</td>
-</tr>
-</tbody>
-</table>
-<h4><span id="123-openness">1.2.3 Openness</span></h4><p><em>Definition</em>: $^1$a system that offers services according to standard rules that $^2$ describe the syntax and semantics of those services.</p>
-<ul>
-<li>Well-defined interface</li>
-<li>Portability of applications</li>
-<li>Easy interoperability (互操作)</li>
-</ul>
-<h4><span id="124-scalability">1.2.4 Scalability</span></h4><p><em>Type</em>:</p>
-<ul>
-<li>Size scalability: number of users and processes</li>
-<li>Geographical scalability: maxinum distance between nodes</li>
-<li>Administrative scalability: easy to manage number of administrative domains</li>
-</ul>
-<h3><span id="13-types-of-distributed-systems">1.3 Types of Distributed Systems</span></h3><p>Distributed  computing systems, distributed information systems, distributed pervasive systems.</p>
-<h4><span id="131-distributed-computing-system">1.3.1 Distributed Computing System</span></h4><h5><span id="1311-cluster-computing">1.3.1.1 Cluster Computing</span></h5><ul>
-<li>a group of high-end systems connected through a LAN</li>
-<li>homogeneity 同构: OS, hardware</li>
-<li>single managing node</li>
-</ul>
-<h5><span id="1312-grid-computing">1.3.1.2 Grid Computing</span></h5><ul>
-<li>dispersed across several domains</li>
-<li>heterogeneous</li>
-<li>easily span a wide-area network</li>
-</ul>
-<h4><span id="132-distributed-information-system">1.3.2 Distributed Information System</span></h4><ul>
-<li>all or none of the requests will be executed </li>
-<li>ACID</li>
-<li>transaction processing monitor</li>
-</ul>
-<h4><span id="133-distributed-pervasive-system">1.3.3 Distributed Pervasive System</span></h4><ul>
-<li>nodes are small, mobile, and often embedded in a larger system</li>
-<li>Ubiquitous computing systems</li>
-<li>mobile computing systems</li>
-<li>Sensor networks</li>
-</ul>
-
+        <script src="/js/crypto-js.js"></script><script>
+function doDecrypt(pwd, onError) {
+	console.log("in doDecrypt");
+	var txt = document.getElementById("enc_content").innerHTML;
+	var plantext;
+	try {
+	  	var bytes = CryptoJS.AES.decrypt(txt, pwd);
+		plaintext = bytes.toString(CryptoJS.enc.Utf8);
+	} catch(err) {
+		if(onError) {onError(err);}
+		return;
+	}
+	document.getElementById("enc_content").innerHTML = plaintext;
+	document.getElementById("enc_content").style.display = "block";
+   document.getElementById("enc_passwd").style.display = "none";
+}
+</script>
+<div id="enc_content" style="display:none">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</div><div id="enc_passwd"> <input id="enc_pwd_input" type="text" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
+<script>
+var onError = function(error) {
+	document.getElementById("enc_error").innerHTML = "password error!"
+};
+function decrypt() {
+var passwd = document.getElementById("enc_pwd_input").value;
+console.log(passwd);
+doDecrypt(passwd, onError);
+}
+</script>
+</div>
       
 
       
@@ -331,6 +266,14 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DistributedSystem</a>
         		</li>
       		
 		</ul>
@@ -386,7 +329,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/09/27/DistributedSystem-Introduction/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/09/27/DS 01-Introduction/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -438,7 +381,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">1.Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.1 Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.2 Goals</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">1.2.1 Resources Available</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">1.2.2 Transparency</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">1.2.3 Openness</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.4.</span> <span class="toc-text">1.2.4 Scalability</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.</span> <span class="toc-text">1.3 Types of Distributed Systems</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">1.3.1 Distributed Computing System</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.1.1.</span> <span class="toc-text">1.3.1.1 Cluster Computing</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.1.2.</span> <span class="toc-text">1.3.1.2 Grid Computing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">1.3.2 Distributed Information System</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">1.3.3 Distributed Pervasive System</span></a></li></ol></li></ol></li></ol></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -565,14 +508,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -581,7 +516,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,15 +564,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,15 +572,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>

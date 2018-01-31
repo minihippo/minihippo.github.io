@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://minihippo.github.io/2017/10/18/Surfing-by-An-Effective-Way/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="关于ShadowSocks　　它是一个基于SOCKS5协议的协议。实现原理： 1client &amp;lt;--&amp;gt; ss-local &amp;lt;--[加密]--&amp;gt; ss-remote &amp;lt;--&amp;gt; target">
-<meta property="og:updated_time" content="2017-10-18T06:12:37.000Z">
+<meta property="og:updated_time" content="2018-01-31T08:25:59.646Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Surfing by An Effective Way">
 <meta name="twitter:description" content="关于ShadowSocks　　它是一个基于SOCKS5协议的协议。实现原理： 1client &amp;lt;--&amp;gt; ss-local &amp;lt;--[加密]--&amp;gt; ss-remote &amp;lt;--&amp;gt; target">
@@ -239,12 +239,10 @@
 <h4><span id="浏览器代理">浏览器代理</span></h4><p>　　由于流量都是走本地端口号才能出去，而浏览器的默认端口并不是本地端口，因此需要给浏览器设置代理。</p>
 <ul>
 <li><p>Google Chrome</p>
-<p>安装插件SwitchyOmega，现在貌似升级到了SwitchSharp。</p>
-<p>设置socks 5 代理，地址为本机地址“localhost”，端口为本地端口。</p>
+<p>安装插件SwitchyOmega，现在貌似升级到了SwitchSharp。<br>设置socks 5 代理，地址为本机地址“localhost”，端口为本地端口。</p>
 </li>
 <li><p>Firefox</p>
-<p>不需要安装插件，直接设置就好。</p>
-<p>配置方式如上，但需勾上远程DNS</p>
+<p>不需要安装插件，直接设置就好。<br>配置方式如上，但需勾上远程DNS</p>
 </li>
 </ul>
 <h3><span id="mac-os-sierra-搭建ss">Mac OS Sierra 搭建ss</span></h3><p>　　GUI 客户端维护在github上，<a href="https://github.com/shadowsocks/ShadowsocksX-NG" target="_blank" rel="external">ShadowsocksX-NG</a>。当然也可以按照centos的方式通过pip安装。前者浏览器访问不需要插件。后者并没有在mac上尝试。当然还可以直接通过mac包管理命令brew安装shadowsocks-libev。</p>
@@ -253,8 +251,7 @@
 <h3><span id="关于gfw">关于GFW</span></h3><p>　　介绍各个阶段GFW的手段吧。</p>
 <ol>
 <li><p>DNS污染</p>
-<p>　　网址转换成ip需要DNS服务器去解析，GFW要求国内运营商DNS服务器拦截某些网址，然后群众的策略是把DNS服务器地址改成google的8.8.8.8。因为DNS协议是无安全较验的协议。所以当用户访问了GFW想拦截的域名，那么它会返回一个伪造的ip，而后来的google服务器返回真实的ip包会被丢弃。</p>
-<p>　　最简单有效的方法。</p>
+<p>　　网址转换成ip需要DNS服务器去解析，GFW要求国内运营商DNS服务器拦截某些网址，然后群众的策略是把DNS服务器地址改成google的8.8.8.8。因为DNS协议是无安全较验的协议。所以当用户访问了GFW想拦截的域名，那么它会返回一个伪造的ip，而后来的google服务器返回真实的ip包会被丢弃。<br>　　最简单有效的方法。</p>
 </li>
 <li><p>ip封锁</p>
 <p>　　针对1问题，群众的解决方案是改hosts，加入google的ip和域名，自行建立映射。GFW直接就进行ip封锁，无法ping通。</p>
@@ -592,14 +589,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -608,7 +597,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,15 +645,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,15 +653,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>

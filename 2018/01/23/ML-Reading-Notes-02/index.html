@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://minihippo.github.io">
   <title>ML Reading Notes-02 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
-<meta name="keywords" content="ML,notes">
+  <meta name="description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
+<meta name="keywords" content="notes,ML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML Reading Notes-02">
 <meta property="og:url" content="http://minihippo.github.io/2018/01/23/ML-Reading-Notes-02/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
+<meta property="og:description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-1.png">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-2.png">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-3.png">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-4.png">
 <meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/2-5.png">
-<meta property="og:updated_time" content="2018-01-24T15:01:44.224Z">
+<meta property="og:updated_time" content="2018-01-31T08:37:14.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML Reading Notes-02">
-<meta name="twitter:description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
+<meta name="twitter:description" content="RegressionBackground:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。">
 <meta name="twitter:image" content="http://minihippo.github.io/ML-ReadingNotes/2-1.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
@@ -200,26 +200,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="regression">Regression</span></h1><p><strong>Background</strong>:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。<br>               训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。   </p>
+        <h1><span id="regression">Regression</span></h1><p><strong>Background</strong>:以pokeman go为例学习regression。对pokeman进化后的cp值问题建模。<br>训练数据有十只不同pokeman，它们有初始cp值及其他各种属性。   </p>
 <a id="more"></a>
-<p><strong>Steps:</strong><br>① Model: a set of function<br>　　linear $y = b+w*x_{cp}$,  bias &amp; weight<br>② Goodness of function: train data and set loss function $L$ to evaluate goodness of $f$.<br>　　 $L(f) = \sum_{n=1}^{10}(\hat{y}^n - f(x_{cp}^n))^2$,  input a function, output how bad it is.<br>　　sum over examples to calculate variance; $\hat{y}^n$—true value<br>③ Best function: gradient descent<br>　　pick the best function $f^* = arg min_f L(f)$, related to $w,b$</p>
+<p><strong>Steps:</strong><br>① Model: a set of function<br>　　linear $y = b+w*x_{cp}$,  bias &amp; weight </p>
+<p>② Goodness of function: train data and set loss function $L$ to evaluate goodness of $f$.<br>　　 $L(f) = \sum_{n=1}^{10}(\hat{y}^n - f(x_{cp}^n))^2$,  input a function, output how bad it is.<br>　　sum over examples to calculate variance; $\hat{y}^n$—true value  </p>
+<p>③ Best function: gradient descent<br>　　pick the best function $f^* = arg min_f L(f)$, related to $w,b$</p>
 <p><u><strong>How to find the best function?</strong></u></p>
 <h2><span id="gradient-descent">Gradient Descent</span></h2><h4><span id="1one-parameter">1.one parameter</span></h4><p><strong>pre</strong>: consider $L$ with only one parameter $w$  </p>
 <p><strong>steps</strong>:<br>1.randomly pick an intial value $w^0$<br>2.compute $w^0$处导数:$$\frac{dL}{dw}|_{w=w^0}$$3.update $$w^1 = w^0 -\eta\frac{dL}{dw}|_{w=w^0}$$$\eta$ is learning rate/step length</p>
 <p><strong>一维梯度下降过程</strong>：</p>
 <p><img src="/ML-ReadingNotes/2-1.png" style="zoom:50%"><br>梯度下降方法由于初始点的选择常常只能找到局部最优点，非全局最优解。<strong>回归问题</strong>由于是凸面的因此局部最优就是全局最优。</p>
-<h5><span id="2two-parameter">2.two parameter</span></h5><p><strong>pre</strong>: $f^* = arg min_f L(f)$　 =&gt;　 $ w^*,b^* = arg min_(w,b) L(w,b)$  </p>
+<h4><span id="2two-parameter">2.two parameter</span></h4><p><strong>pre</strong>: $f^* = arg min_f L(f)$　 =&gt;　 $ w^*,b^* = arg min_(w,b) L(w,b)$  </p>
 <p><strong>steps</strong>:<br>1.randomly pick an intial value $w^0, b^0$<br>2.compute $w^0, b^0$处偏导数$$\frac{\partial L}{\partial w}|_{w=w^0,b=b^0},\frac{\partial L}{\partial b}|_{w=w^0,b=b^0}$$</p>
 <p><strong>gradient</strong>: $$\nabla L(w, b)=[\frac{\partial L}{\partial w},\frac{\partial L}{\partial b} ]^T$$</p>
 <p><strong>二维梯度下降过程</strong>：</p>
 <p><img src="/ML-ReadingNotes/2-2.png" style="zoom:50%"></p>
-<h5><span id="3-梯度收敛的情况">3. 梯度收敛的情况</span></h5><p>　　极小值、鞍点<br><img src="/ML-ReadingNotes/2-3.png" style="zoom:40%"><br>因此收敛并不代表找到了最小值或极小值。</p>
-<h3><span id="model-generalization">Model Generalization</span></h3><p>比较了一次、二次、三次、四次、五次式模型对应的训练误差和泛化误差，它们之间的关系如下：</p>
+<h4><span id="3-梯度收敛的情况">3. 梯度收敛的情况</span></h4><p>　　极小值、鞍点<br><img src="/ML-ReadingNotes/2-3.png" style="zoom:40%"><br>因此收敛并不代表找到了最小值或极小值。</p>
+<h2><span id="model-generalization">Model Generalization</span></h2><p>比较了一次、二次、三次、四次、五次式模型对应的训练误差和泛化误差，它们之间的关系如下：</p>
 <p><img src="/ML-ReadingNotes/2-4.png" style="zoom:50%"><br>复杂模型会包含简单模型，因此也更有可能包含最优解。</p>
-<h4><span id="泛化性能差">泛化性能差</span></h4><p>redesign the model:  $y = b+ \sum w_i x_i$ , consider more hidden factors,<br>　　　　　　　　　　模型中也可以考虑属性的平方</p>
-<h4><span id="overfitting">overfitting</span></h4><p><strong>def</strong>: a more complex model does not always lead to a better performance on testing data.   </p>
-<p><strong>solution</strong>: Regularization　　 $\lambda\sum(w_i)^2 $   </p>
-<p><strong>Regularization</strong><br>origin loss：$$L = \sum_n (\hat{y}^n - (b+\sum w_ix_i))^2,$$<br>只考虑预测值和真实值的误差<br>improved loss：$$L = \sum_n (\hat{y}^n - (b+\sum w_ix_i))^2+\lambda\sum(w_i)^2,$$<br>考虑了weight的误差.当weight越小，function受到输入数值大小的影响越小，也就越平滑<br>$$y+\sum w_i \Delta x_i = b + \sum (x_i + \Delta x_i) $$<br>因此$\lambda$越大，考虑smooth就越多，training error就越少。</p>
+<h3><span id="泛化性能差">泛化性能差</span></h3><p>redesign the model:  $y = b+ \sum w_i x_i$ , consider more hidden factors,模型中也可以考虑属性的平方</p>
+<h3><span id="overfitting">overfitting</span></h3><p><strong>def</strong>: a more complex model does not always lead to a better performance on testing data.   </p>
+<p><strong>solution</strong>: Regularization--$\lambda\sum(w_i)^2 $   </p>
+<ul>
+<li><strong>Regularization</strong><br>1.origin loss：$$L = \sum_n (\hat{y}^n - (b+\sum w_ix_i))^2,$$只考虑预测值和真实值的误差<br>2.improved loss：$$L = \sum_n (\hat{y}^n - (b+\sum w_ix_i))^2+\lambda\sum(w_i)^2,$$考虑了<strong>weight</strong>的误差.当weight越小，function受到输入数值大小的影响越小，也就越<strong>平滑</strong>$$y+\sum w_i \Delta x_i = b + \sum (x_i + \Delta x_i) $$因此$\lambda$越大，考虑smooth就越多，training error就越少,如下图所示。</li>
+</ul>
 <p><img src="/ML-ReadingNotes/2-5.png" style="zoom:40%"></p>
 
       
@@ -260,11 +264,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
         		</li>
       		
 		</ul>
@@ -363,7 +367,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.one parameter</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.1.1.</span> <span class="toc-text">2.two parameter</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.1.2.</span> <span class="toc-text">3. 梯度收敛的情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">Model Generalization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">泛化性能差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">overfitting</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Regression</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Gradient Descent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.one parameter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.two parameter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.0.3.</span> <span class="toc-text">3. 梯度收敛的情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Model Generalization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">泛化性能差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">overfitting</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -490,14 +494,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -506,7 +502,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,15 +550,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -562,15 +558,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
             
             <div class="clearfix"></div>
