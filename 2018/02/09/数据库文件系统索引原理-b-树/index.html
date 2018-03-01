@@ -6,17 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>Tag: 教程 | MiniHippo&#39;s Blog</title>
+  <title>数据库文件系统索引原理 b-树 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MiniHippo&#39;s Blog">
-<meta property="og:url" content="http://minihippo.github.io/tags/教程/index.html">
+  <meta name="description" content="阿里面试问到过。 Reference超详细数据结构与算法（7）：数据库索引原理及优化">
+<meta name="keywords" content="数据库,小记,索引,b树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库文件系统索引原理 b-树">
+<meta property="og:url" content="http://minihippo.github.io/2018/02/09/数据库文件系统索引原理-b-树/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta property="og:description" content="阿里面试问到过。 Reference超详细数据结构与算法（7）：数据库索引原理及优化">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-1.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-4.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-6.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-7.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-8.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-9.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-2.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/b树-3.png">
+<meta property="og:updated_time" content="2018-03-01T10:32:27.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MiniHippo&#39;s Blog">
-<meta name="twitter:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta name="twitter:title" content="数据库文件系统索引原理 b-树">
+<meta name="twitter:description" content="阿里面试问到过。 Reference超详细数据结构与算法（7）：数据库索引原理及优化">
+<meta name="twitter:image" content="http://minihippo.github.io/picture/b树-1.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -172,206 +183,340 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-数据库文件系统索引原理-b-树" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据库文件系统索引原理 b-树
+    </h1>
+  
+
+        
+        <a href="/2018/02/09/数据库文件系统索引原理-b-树/" class="archive-article-date">
+  	<time datetime="2018-02-09T07:04:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>阿里面试问到过。</p>
+<h2><span id="reference">Reference</span></h2><p>超详细<a href="https://plushunter.github.io/2017/07/21/数据结构与算法（7）：数据库索引原理及优化/" target="_blank" rel="external">数据结构与算法（7）：数据库索引原理及优化</a></p>
+<a id="more"></a>
+<h2><span id="索引原理">索引原理</span></h2><p>　　索引一种数据结构，以某种方式指向数据，它存储在磁盘上。为数据建索引是为了减少I/O访问次数，更有效的查找文件。</p>
+<p><strong>二叉树</strong>： 每个节点最多两个子树。查找一条数据复杂度是$\log n$。查找效率和层数有关，层数越深，比较次数越多。<br>对于数据库来说，每进入一层就需要从硬盘读取一次数据，因此层数限制了速度。<br><strong>平衡多叉树</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>B树</th>
+<th>B+树</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>更能表示区间</td>
+</tr>
+<tr>
+<td>中间节点存储数据</td>
+<td>只有叶子结点存储数据，中间节点索引</td>
+</tr>
+<tr>
+<td>子树m个，中间节点m-1个关键字</td>
+<td>子数m个，中间节点m个关键字</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="1-b树">1. B树</span></h3><p><strong>特性</strong>：对于一个m阶B树</p>
+<ol>
+<li>根节点子树数量[2,M]</li>
+<li>分支节点子树数量[M/2,M]</li>
+<li>叶子节点位于同一层</li>
+<li>关键字数量满足$ceil(M/2)-1 \leq n \leq m-1$</li>
+<li>有k个子树的分支节点关键字数量为k-1</li>
+</ol>
+<p>　　如图，3阶B树<br><img src="/picture/b树-1.png" ,="" style="zoom:50%"><br><strong>搜索方式</strong>：<br>查找某个关键字$K$，先取根节点，根据根节点包含的关键字$K_1\dots K_n$找到是否含有$K$，或者确定关键字所在的区间$K_i, K_(i+1)$。再根据该区间所指向的子树继续查找，直到找到或子树为空。<br>若一个节点可以容纳100个值，那么3层B树可以存储100万条数据，查找目标值最多读两次硬盘。<strong>减少定位记录时所经历的中间过程</strong></p>
+<p><strong>b树的删除插入</strong>：<br>删除插入操作必须满足b树的特性，尤其是2、4、5三点。具体的示例见最后。</p>
+<h3><span id="2-b树">2. B+树</span></h3><p>　　B+树是B树的变体，中间节点不存储只作为索引，所有数据存储在叶子节点上。B+树更适合区间查询，因此更适合文件索引系统。<br><strong>特性</strong>：（类似B树）</p>
+<ol>
+<li>有k个子树的分支节点关键字数量为k</li>
+<li>子树指针指向的区间和B树不同</li>
+<li>所有关键字存储在叶子节点上</li>
+<li>叶子节点的链表是有序的</li>
+</ol>
+<p>　　如图，3阶B+树<br><img src="/picture/b树-4.png" ,="" style="zoom:50%"><br>数据库会在经典的B+树结构上进行优化，在叶子节点上增加顺序访问指针，提高区间的访问性能，如上图所示B*树。</p>
+<h2><span id="mysql-索引实现">MySQL 索引实现</span></h2><h5><span id="mysql-索引类型">MySQL 索引类型</span></h5><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主键索引</td>
+<td>特殊的唯一索引，不允许有空值</td>
+</tr>
+<tr>
+<td>唯一索引</td>
+<td>列值必须唯一，但允许空值</td>
+</tr>
+<tr>
+<td>普通索引</td>
+<td>无限制</td>
+</tr>
+<tr>
+<td>组合索引</td>
+<td>一个索引包含多个列</td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>全文检索</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>聚集索引</td>
+<td>索引按照数据存放的物理位置为顺序/叶节点就是数据节点</td>
+</tr>
+<tr>
+<td>非聚集索引</td>
+<td>索引的逻辑顺序和物理存储顺序不同/叶节点存储指向数据地址的指针</td>
+</tr>
+</tbody>
+</table>
+<p>　　MyISAM与InnoDB的区别</p>
+<table>
+<thead>
+<tr>
+<th>MyISAM</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>叶节点：数据地址</td>
+<td>叶节点：数据块</td>
+</tr>
+<tr>
+<td>非聚集索引</td>
+<td>聚集索引</td>
+</tr>
+<tr>
+<td>索引数据分离</td>
+<td>索引数据不分离</td>
+</tr>
+<tr>
+<td>非必须主键</td>
+<td>必须要有主键</td>
+</tr>
+<tr>
+<td>辅助索引叶节点存储数据地址</td>
+<td>辅助索引叶节点存储主键</td>
+</tr>
+<tr>
+<td>适用于大数目的不同值、频繁更新的列、频繁修改索引列</td>
+<td>适用于返回某范围内的数据、小数目的不同值</td>
+</tr>
+<tr>
+<td></td>
+<td>不适用于主键很长</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="1myisam索引实现">1.MyISAM索引实现</span></h3><p>　　MyISAM使用B+树作为索引结构，叶节点存储数据地址。<br>主索引<br><img src="/picture/b树-6.png" ,="" style="zoom:50%"><br>辅助索引<br><img src="/picture/b树-7.png" ,="" style="zoom:50%"><br>主索引和辅助索引结构上没有区别，主索引要求key唯一而辅助索引不用。</p>
+<h3><span id="2innodb索引实现">2.InnoDB索引实现</span></h3><p>　　InnoDB使用B+树作为索引结构，叶节点存储数据块。<br>主索引<br><img src="/picture/b树-8.png" ,="" style="zoom:50%"><br>辅助索引<br><img src="/picture/b树-9.png" ,="" style="zoom:50%"><br>主索引因为InnoDB数据文件本身要按照主键聚集所以必须要有主键。<br>辅助索引记录的是主键的值而不是数据地址。因此需要检索两边索引：先获得主键再获得记录。</p>
+<h3><span id="索引使用策略">索引使用策略</span></h3><p>　　组合索引的<strong>最左前缀匹配原则</strong>：对于多列索引，总是从索引最前面字段开始匹配，接着往后/向右，中间不能跳过。（组合索引的每个字段都是有序的，先按A字段排序再B字段排序）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> a=<span class="number">1</span> <span class="keyword">and</span> b=<span class="number">2</span> <span class="keyword">and</span> c=<span class="number">3</span>；  //用到了索引a、b、c</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> a=<span class="number">1</span> <span class="keyword">and</span> c=<span class="number">3</span>；    //只用到了索引a</div></pre></td></tr></table></figure>
+<p>因此在创建多列索引时，where子句中使用最频繁的一列放在最左边</p>
+<h3><span id="索引的缺点">索引的缺点</span></h3><ul>
+<li>对于数据量大的，插入删除数据时索引需要更新</li>
+<li>索引需要额外空间</li>
+<li>查询索引也需要时间</li>
+</ul>
+<h4><span id="b树插入删除">B树插入删除</span></h4><p>　　对于一个3阶树<br><strong>插入</strong>：<br><img src="/picture/b树-2.png" ,="" style="zoom:50%"></p>
+<p><strong>删除</strong>：<br><img src="/picture/b树-3.png" ,="" style="zoom:40%"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/26/markdown/" class="archive-article-date">
-  	<time datetime="2017-09-26T11:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/26/markdown/">markdown语法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdwon</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">索引</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">b树</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/02/09/数据库文件系统索引原理-b-树/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/24/vim简单命令/" class="archive-article-date">
-  	<time datetime="2017-09-24T15:30:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/07/数据库join原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库join原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/24/vim简单命令/">vim简单命令</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vim</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">索引原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">1. B树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">2. B+树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">MySQL 索引实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">MySQL 索引类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">1.MyISAM索引实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">2.InnoDB索引实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">索引使用策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.4.</span> <span class="toc-text">索引的缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.4.1.</span> <span class="toc-text">B树插入删除</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/23/hexo搭建指南/" class="archive-article-date">
-  	<time datetime="2017-09-23T00:29:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/23/hexo搭建指南/">hexo搭建指南</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/git使用指南/" class="archive-article-date">
-  	<time datetime="2017-09-18T13:44:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/git使用指南/">git使用指南</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -395,9 +540,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
