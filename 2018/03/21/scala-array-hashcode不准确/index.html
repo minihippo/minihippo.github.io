@@ -9,7 +9,7 @@
   <title>scala array hashcode不准确 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="因为scala的array就是在java array的基础上的，所以hashcode直接用的就是java定义的hashcode。而java的array.hashcode()就是根据数组的引用地址计算的，而不是根据数据的内容。 解决方案：  转成asjava,用java.util.Arrays.hashcode() 转成Seq或者list 重写hashcode，但是数组计算hashcode效率会变差">
-<meta name="keywords" content="scala,小记">
+<meta name="keywords" content="小记,scala">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scala array hashcode不准确">
 <meta property="og:url" content="http://minihippo.github.io/2018/03/21/scala-array-hashcode不准确/index.html">
@@ -63,7 +63,7 @@
 	        
 				<li><a href="/tags/notes/">笔记</a></li>
 	        
-				<li><a href="/tags/周记/">周记</a></li>
+				<li><a href="/tags/小记/">周记</a></li>
 	        
 				<li><a href="/tags/杂谈/">杂谈</a></li>
 	        
@@ -155,7 +155,7 @@
 		        
 					<li style="width: 20%"><a href="/tags/notes/">笔记</a></li>
 		        
-					<li style="width: 20%"><a href="/tags/周记/">周记</a></li>
+					<li style="width: 20%"><a href="/tags/小记/">周记</a></li>
 		        
 					<li style="width: 20%"><a href="/tags/杂谈/">杂谈</a></li>
 		        
@@ -214,11 +214,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
         		</li>
       		
 		</ul>
@@ -456,6 +456,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">存储</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">小记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
@@ -496,11 +504,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">教程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">hexo - git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,6 +516,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">教程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
               </li>
              
@@ -520,15 +532,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">小记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,6 +541,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">join</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
