@@ -6,22 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>DAS、NAS、SAN、ISCIS存储区分 | MiniHippo&#39;s Blog</title>
+  <title>Tag: zookeeper | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Storage Classification">
-<meta name="keywords" content="存储,小记">
-<meta property="og:type" content="article">
-<meta property="og:title" content="DAS、NAS、SAN、ISCIS存储区分">
-<meta property="og:url" content="http://minihippo.github.io/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/index.html">
+  <meta name="description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MiniHippo&#39;s Blog">
+<meta property="og:url" content="http://minihippo.github.io/tags/zookeeper/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="Storage Classification">
-<meta property="og:image" content="http://minihippo.github.io/picture/DAS-NAS-class.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DAS-NAS.png">
-<meta property="og:updated_time" content="2018-06-01T08:51:21.171Z">
+<meta property="og:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DAS、NAS、SAN、ISCIS存储区分">
-<meta name="twitter:description" content="Storage Classification">
-<meta name="twitter:image" content="http://minihippo.github.io/picture/DAS-NAS-class.png">
+<meta name="twitter:title" content="MiniHippo&#39;s Blog">
+<meta name="twitter:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -177,183 +172,72 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DAS、NAS、SAN、ISCIS存储区分" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      DAS、NAS、SAN、ISCIS存储区分
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/06/01/hadoop-high-availability-机制/" class="archive-article-date">
+  	<time datetime="2018-06-01T14:03:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/06/01/hadoop-high-availability-机制/">hadoop high availability 机制</a>
     </h1>
   
 
-        
-        <a href="/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/" class="archive-article-date">
-  	<time datetime="2018-06-01T07:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3><span id="storage-classification">Storage Classification</span></h3><p><img src="/picture/DAS-NAS-class.png" alt="class"></p>
-<a id="more"></a>
-<p>(<em>封闭系统</em>——大型机)</p>
-<h3><span id="overview">Overview</span></h3><p><img src="/picture/DAS-NAS.png" alt="overview"></p>
-<h4><span id="dasdirect-attached-storage">DAS(Direct Attached Storage)</span></h4><p>直接连接存储:<br>　　将外置存储设备通过SCSI(服务器外接设备接口)或FC接口连接到应用服务器上</p>
-<p>紧耦合，I/O性能导致服务器瓶颈，存储不能在服务器间动态分配，数据处理复杂度高</p>
-<h4><span id="nasnetwork-attached-storage">NAS(Network Attached Storage)</span></h4><p>网络附加存储:<br>　　将存储与服务器分离，存储系统包含简单的文件管理系统；网络交换机连接存储和服务器建立私网，应用通过网络(TCP/IP)存取数据；采用业界标准文件共享协议如：NFS、HTTP、CIFS实现共享。</p>
-<p>数据通过普通数据网络传输，依赖网络情况。只能访问文件，不能访问数据块</p>
-<h4><span id="sanstorage-area-network">SAN(Storage Area Network)</span></h4><p>存储区域网:<br>　　通过光纤交换机连接存储阵列和服务器，建立专用数据存储的存储私网（存储采用高端RAID阵列），采用SCSI、FC-AL接口。</p>
-<p>专用网路速度快，光纤价格昂贵</p>
-<p>！！ NAS与SAN的去呗就是NAS有自己的FS管理</p>
-<h4><span id="iscsiinternet-scsi">ISCSI(Internet SCSI)</span></h4><p>Internet小型计算机接口：使用普通的数据网传输SCSI数据块</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">namenode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/06/01/hadoop-high-availability-机制/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hadoop high availability 机制
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/05/31/blog-backup/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">blog backup</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Storage Classification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">DAS(Direct Attached Storage)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">NAS(Network Attached Storage)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">SAN(Storage Area Network)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.4.</span> <span class="toc-text">ISCSI(Internet SCSI)</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -377,9 +261,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

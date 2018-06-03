@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>DAS、NAS、SAN、ISCIS存储区分 | MiniHippo&#39;s Blog</title>
+  <title>hadoop high availability 机制 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Storage Classification">
-<meta name="keywords" content="存储,小记">
+  <meta name="description" content="为了解决namenode单点失效问题，提出namenode双机备份，使namenode失效后能直接切换到备份节点，且不存在数据一致性问题。 Overview　　架构">
+<meta name="keywords" content="小记,hadoop,namenode,zookeeper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DAS、NAS、SAN、ISCIS存储区分">
-<meta property="og:url" content="http://minihippo.github.io/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/index.html">
+<meta property="og:title" content="hadoop high availability 机制">
+<meta property="og:url" content="http://minihippo.github.io/2018/06/01/hadoop-high-availability-机制/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="Storage Classification">
-<meta property="og:image" content="http://minihippo.github.io/picture/DAS-NAS-class.png">
-<meta property="og:image" content="http://minihippo.github.io/picture/DAS-NAS.png">
-<meta property="og:updated_time" content="2018-06-01T08:51:21.171Z">
+<meta property="og:description" content="为了解决namenode单点失效问题，提出namenode双机备份，使namenode失效后能直接切换到备份节点，且不存在数据一致性问题。 Overview　　架构">
+<meta property="og:image" content="http://minihippo.github.io/picture/hadoop-ha-1.png">
+<meta property="og:image" content="http://minihippo.github.io/picture/hadoop-ha-2.png">
+<meta property="og:updated_time" content="2018-06-01T14:33:44.296Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DAS、NAS、SAN、ISCIS存储区分">
-<meta name="twitter:description" content="Storage Classification">
-<meta name="twitter:image" content="http://minihippo.github.io/picture/DAS-NAS-class.png">
+<meta name="twitter:title" content="hadoop high availability 机制">
+<meta name="twitter:description" content="为了解决namenode单点失效问题，提出namenode双机备份，使namenode失效后能直接切换到备份节点，且不存在数据一致性问题。 Overview　　架构">
+<meta name="twitter:image" content="http://minihippo.github.io/picture/hadoop-ha-1.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -177,38 +177,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DAS、NAS、SAN、ISCIS存储区分" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-hadoop-high-availability-机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      DAS、NAS、SAN、ISCIS存储区分
+      hadoop high availability 机制
     </h1>
   
 
         
-        <a href="/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/" class="archive-article-date">
-  	<time datetime="2018-06-01T07:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
+        <a href="/2018/06/01/hadoop-high-availability-机制/" class="archive-article-date">
+  	<time datetime="2018-06-01T14:03:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3><span id="storage-classification">Storage Classification</span></h3><p><img src="/picture/DAS-NAS-class.png" alt="class"></p>
+        <p>为了解决namenode单点失效问题，提出namenode双机备份，使namenode失效后能直接切换到备份节点，且不存在数据一致性问题。</p>
+<h3><span id="overview">Overview</span></h3><p>　　架构<br><img src="/picture/hadoop-ha-1.png" alt="architecture"></p>
 <a id="more"></a>
-<p>(<em>封闭系统</em>——大型机)</p>
-<h3><span id="overview">Overview</span></h3><p><img src="/picture/DAS-NAS.png" alt="overview"></p>
-<h4><span id="dasdirect-attached-storage">DAS(Direct Attached Storage)</span></h4><p>直接连接存储:<br>　　将外置存储设备通过SCSI(服务器外接设备接口)或FC接口连接到应用服务器上</p>
-<p>紧耦合，I/O性能导致服务器瓶颈，存储不能在服务器间动态分配，数据处理复杂度高</p>
-<h4><span id="nasnetwork-attached-storage">NAS(Network Attached Storage)</span></h4><p>网络附加存储:<br>　　将存储与服务器分离，存储系统包含简单的文件管理系统；网络交换机连接存储和服务器建立私网，应用通过网络(TCP/IP)存取数据；采用业界标准文件共享协议如：NFS、HTTP、CIFS实现共享。</p>
-<p>数据通过普通数据网络传输，依赖网络情况。只能访问文件，不能访问数据块</p>
-<h4><span id="sanstorage-area-network">SAN(Storage Area Network)</span></h4><p>存储区域网:<br>　　通过光纤交换机连接存储阵列和服务器，建立专用数据存储的存储私网（存储采用高端RAID阵列），采用SCSI、FC-AL接口。</p>
-<p>专用网路速度快，光纤价格昂贵</p>
-<p>！！ NAS与SAN的去呗就是NAS有自己的FS管理</p>
-<h4><span id="iscsiinternet-scsi">ISCSI(Internet SCSI)</span></h4><p>Internet小型计算机接口：使用普通的数据网传输SCSI数据块</p>
+<h4><span id="namenode同步">namenode同步</span></h4><ul>
+<li>两个namenode都与一组称为JNS(Journal Nodes常为奇数个)的互相独立的进程保持通信。<br>-当Active Node上更新了namespace，它将记录修改日志发送给JNS的多数派。</li>
+<li>Standby noes将会从JNS中读取这些editslog，并持续关注它们对日志的变更。Standby Node将日志变更应用在自己的namespace中。</li>
+<li>当failover发生时，Standby将会在提升自己为Active之前，确保能够从JNS中读取所有的editlogs。</li>
+</ul>
+<h4><span id="namenode切换">namenode切换</span></h4><p>　　流程<br><img src="/picture/hadoop-ha-2.png" alt="procedure"></p>
+<p><strong>ZKFailoverController</strong>:作为 NameNode 机器上一个独立的进程启动，启动的时候创建 HealthMonitor 和 ActiveStandbyElector 这两个主要的内部组件。<br><strong>HealthMonitor</strong>: 负责检测 NameNode 的健康状态，如果 NameNode 的状态发生变化，告诉ZKFailoverController 进行自动的主备选举。<br><strong>ActiveStandbyElector</strong>： 主要负责完成自动的主备选举，内部封装了 Zookeeper 的处理逻辑，一旦 Zookeeper 主备选举完成，会回调 ZKFailoverController 的相应方法来进行 NameNode 的主备状态切换。</p>
+<p>具体流程：<br>　　集群启动后一个NameNode处于Active状态，并提供服务，处理客户端和DataNode的请求，并把editlog写到本地和share editlog（这里是QJM）中。另外一个NameNode处于Standby状态，它启动的时候加载fsimage，然后周期性的从share editlog中获取editlog，保持与Active节点的状态同步。<br>　　为了实现Standby在Active挂掉后迅速提供服务，需要DataNode同时向两个NameNode汇报，使得Standby保存block to DataNode信息，因为NameNode启动中最费时的工作是处理所有DataNode的blockreport。<br>　　为了实现热备，增加FailoverController和Zookeeper，FailoverController与Zookeeper通信，通过Zookeeper选举机制，FailoverController通过RPC让NameNode转换为Active或Standby</p>
+<h5><span id="reference">Reference</span></h5><p>2版本以后的更新<br><a href="hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithNFS.html">hadoop document about HA</a></p>
 
       
 
@@ -222,11 +222,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">存储</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">namenode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
         		</li>
       		
 		</ul>
@@ -282,7 +290,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/06/01/hadoop-high-availability-机制/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,18 +304,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/06/01/hadoop-high-availability-机制/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hadoop high availability 机制
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/31/blog-backup/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">blog backup</div>
+    <a href="/2018/06/01/DAS、NAS、SAN、ISCIS存储区分/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DAS、NAS、SAN、ISCIS存储区分</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -326,19 +325,6 @@
             </div>
         </div>
         
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Storage Classification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">DAS(Direct Attached Storage)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">NAS(Network Attached Storage)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">SAN(Storage Area Network)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.4.</span> <span class="toc-text">ISCSI(Internet SCSI)</span></a></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
         
     </div>
 </aside>
