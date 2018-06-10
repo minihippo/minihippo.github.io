@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>Archives | MiniHippo&#39;s Blog</title>
+  <title>Spark job, stage,task划分与提交 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MiniHippo&#39;s Blog">
-<meta property="og:url" content="http://minihippo.github.io/archives/page/2/index.html">
+  <meta name="description" content="进入8080端口看到Spark任务管理也页面，可以看到我们提交的任务是有一个Application ID。点进去会分成多个Job ID，点进一个job又有多个stage，stage点进去就是executor和task的详细情况。显然，Application &amp;gt; Job &amp;gt; Stage &amp;gt; Task。">
+<meta name="keywords" content="小记,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark job, stage,task划分与提交">
+<meta property="og:url" content="http://minihippo.github.io/2018/06/09/Spark-job-stage-task划分/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta property="og:description" content="进入8080端口看到Spark任务管理也页面，可以看到我们提交的任务是有一个Application ID。点进去会分成多个Job ID，点进一个job又有多个stage，stage点进去就是executor和task的详细情况。显然，Application &amp;gt; Job &amp;gt; Stage &amp;gt; Task。">
+<meta property="og:updated_time" content="2018-06-10T12:04:36.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MiniHippo&#39;s Blog">
-<meta name="twitter:description" content="NJUer PASAer Neuer java github linux hexo nodejs scala">
+<meta name="twitter:title" content="Spark job, stage,task划分与提交">
+<meta name="twitter:description" content="进入8080端口看到Spark任务管理也页面，可以看到我们提交的任务是有一个Application ID。点进去会分成多个Job ID，点进一个job又有多个stage，stage点进去就是executor和task的详细情况。显然，Application &amp;gt; Job &amp;gt; Stage &amp;gt; Task。">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -172,497 +174,180 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Spark-job-stage-task划分" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spark job, stage,task划分与提交
+    </h1>
+  
+
+        
+        <a href="/2018/06/09/Spark-job-stage-task划分/" class="archive-article-date">
+  	<time datetime="2018-06-09T10:29:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>进入8080端口看到Spark任务管理也页面，可以看到我们提交的任务是有一个Application ID。点进去会分成多个Job ID，点进一个job又有多个stage，stage点进去就是executor和task的详细情况。<br>显然，Application &gt; Job &gt; Stage &gt; Task。</p>
+<a id="more"></a>
+<h3><span id="划分原理">划分原理</span></h3><p><strong>job每遇到action操作就进行分割。stage每遇到宽依赖就进行分割。</strong><br>Spark中有两类task：shuffleMapTask和resultTask，前者输出shuffle前所需结果，后者输出result。每遇到一个宽依赖，shuffle前的所有变换是一个stage，shuffle操作及后续是一个stage。如果一个job中有多次shuffle，那么每个shuffle之前都是一个stage。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">job1 = stageA + stageB (+ stageC)</div><div class="line">stageA == 多个shuffleMapTask</div><div class="line">stageB == resultTask (+ shuffleMapTask)</div><div class="line">(stageC == resultTask)</div></pre></td></tr></table></figure>
+<p><strong>然而当遇到sortBy、zipWithIndex等操作也会生成一个job</strong>，它们是transformation，这个是为什么呢？<br>Ans：Spark在运行sortByKey之前会先进行sample，确定key的range和分布情况，确保后续真正的排序操作每个partition的数据分布均匀。</p>
+<h3><span id="详细流程">详细流程</span></h3><p><strong>DAGScheduler负责stage的调度管理。TaskScheduler负责task的调度管理。</strong>DAGScheduler还处理由于shuffle 数据丢失导致的失败，可能需要重新提交运行之前的stage。非shuffle数据丢失导致的task失败由TaskScheduler处理。 </p>
+<ol>
+<li>当任务提交到Driver端，每遇到一个action操作，触发SparkContext的<code>runJob</code>方法</li>
+<li>SparkContext调用DAGScheduler的<code>runJob</code>方法，<code>runJob</code>提交<code>JobSubmitted</code>的消息</li>
+<li>DAGScheduler接收消息，把job分为多个stage</li>
+<li>DAGSchedule把stage以taskSet的形式提交给TaskScheduler</li>
+<li>通过TaskScheduler把taskSet添加到任务队列当中，交给SchedulerBackend进行资源分配和任务调度</li>
+<li>调度器给Task分配执行Executor，ExecutorBackend负责执行Task</li>
+</ol>
+<h4><span id="划分stage">划分stage</span></h4><p>3.DAGScheduler接收消息，把job分为多个stage</p>
+<ul>
+<li>DAGSchedule根据最后一个Rdd（即action操作RDD）生成finalStage</li>
+<li>生成finalStage的过程中，从最后一个RDD开始向上遍历其父RDD。若遇到父RDD为窄依赖，则压栈；若为宽依赖，则生成该shuffle过程所在的stage。</li>
+<li>完成栈中Rdd遍历后，所有的stage划分完成。</li>
+</ul>
+<h4><span id="提交stage">提交stage</span></h4><ol>
+<li>DAGScheduler获取finalStage的父stage</li>
+<li>如果存在父stage，则将该调度阶段存储在waitingStages列表中，同时递归提交父stage</li>
+<li>如果不存在父stage,则直接执行该stage的所有task</li>
+<li>当一个stage执行完成后，检查其任务是否全部完成。如果完成，则执行waitingStage列表中的stage，直到所有调度阶段都执行完毕</li>
+</ol>
+<h4><span id="关于task">关于Task</span></h4><p>executor是application运行在worker上的一个进程，一个worker可能有多个executor。<br>task是运行在executor上的工作单元，是application最小的处理单元。<br>提交过程：<br>4.DAGSchedule把stage以taskSet的形式提交给TaskScheduler</p>
+<ul>
+<li>TaskScheduler会生成TaskSetManager单独管理一组taskSet，task的失败次数等等</li>
+<li>TaskScheduler中的schedulableBuilder有种调度策略FIFOSchedulerBuilder和FairSchedulerBuilder，它根据调度策略决定TaskSetManager的执行顺序</li>
+</ul>
+<p>以上，部分通过阅读源码了解，task相关通过blog了解。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/18/Surfing-by-An-Effective-Way/" class="archive-article-date">
-  	<time datetime="2017-10-18T05:57:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/18/Surfing-by-An-Effective-Way/">Surfing by An Effective Way</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">shadowsocks</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">GFW</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Mac OS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Centos 7</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ios</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssh</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vpn</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/06/09/Spark-job-stage-task划分/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/01/DS 02-Architecture/" class="archive-article-date">
-  	<time datetime="2017-10-01T06:13:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/05/Spark-Shuffle-原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark Shuffle 原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/01/DS 02-Architecture/">DS 02-Architecture</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式系统</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/27/DS 01-Introduction/" class="archive-article-date">
-  	<time datetime="2017-09-27T12:26:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/27/DS 01-Introduction/">DS 01-Introduction</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式系统</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/26/周记17-09-25/" class="archive-article-date">
-  	<time datetime="2017-09-26T12:26:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/26/周记17-09-25/">周记17.09.25</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">周记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/26/markdown/" class="archive-article-date">
-  	<time datetime="2017-09-26T11:20:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/26/markdown/">markdown语法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdwon</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/24/vim简单命令/" class="archive-article-date">
-  	<time datetime="2017-09-24T15:30:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/24/vim简单命令/">vim简单命令</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vim</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/23/hexo搭建指南/" class="archive-article-date">
-  	<time datetime="2017-09-23T00:29:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/23/hexo搭建指南/">hexo搭建指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/git使用指南/" class="archive-article-date">
-  	<time datetime="2017-09-18T13:44:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/git使用指南/">git使用指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/18/碎碎念/" class="archive-article-date">
-  	<time datetime="2017-09-18T08:24:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/18/碎碎念/">碎碎念</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/17/hello-world/" class="archive-article-date">
-  	<time datetime="2017-09-17T11:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -687,8 +372,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
