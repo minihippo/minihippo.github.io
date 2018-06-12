@@ -9,14 +9,14 @@
   <title>Spark Shuffle 原理 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="ReferenceSpark Shuffle的演变，">
-<meta name="keywords" content="小记,spark,shuffle">
+<meta name="keywords" content="小记,Spark,Shuffle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark Shuffle 原理">
 <meta property="og:url" content="http://minihippo.github.io/2018/06/05/Spark-Shuffle-原理/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
 <meta property="og:description" content="ReferenceSpark Shuffle的演变，">
 <meta property="og:image" content="http://sharkdtu.com/posts/spark-shuffle.html">
-<meta property="og:updated_time" content="2018-06-09T10:29:14.780Z">
+<meta property="og:updated_time" content="2018-06-11T15:16:59.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Shuffle 原理">
 <meta name="twitter:description" content="ReferenceSpark Shuffle的演变，">
@@ -214,11 +214,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">shuffle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Shuffle</a>
         		</li>
       		
 		</ul>
@@ -288,7 +288,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/06/09/Spark-job-stage-task划分/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/06/09/Spark-job-stage-task划分与提交/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -453,19 +453,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">存储</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">小记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -477,19 +465,39 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">存储</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">小记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">shuffle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Word2Vec</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NLP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,10 +545,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
@@ -565,11 +569,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,10 +586,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">join</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
