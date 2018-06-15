@@ -359,8 +359,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3><span id="reference">Reference</span></h3><p>Spark Shuffle的演变，<img src="http://sharkdtu.com/posts/spark-shuffle.html" alt="Spark Shuffle原理及相关调优"></p>
-
+        <p>Shuffle阶段涉及序列化反序列化、跨节点网络IO以及磁盘读写IO等，代价很高。<br><strong>shuffle write</strong>：每个map task将计算结果分成多份，每一份对应到下游stage的每个partition中，并且临时写到磁盘。<br><strong>shuffle read</strong>：reduce task通过网络拉取map task的指定分区结果数据。</p>
+        
+          <a class="article-more-a" href="/2018/06/05/Spark-Shuffle-原理/#more">more >></a>
+        
       
 
       
@@ -1083,6 +1085,14 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">存储</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">小记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -1099,23 +1109,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">存储</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">小记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ML</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1127,7 +1125,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
+                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1167,11 +1165,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1184,14 +1194,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
