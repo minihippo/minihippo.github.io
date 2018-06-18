@@ -17,7 +17,8 @@
 <meta property="og:description" content="Shuffle阶段涉及序列化反序列化、跨节点网络IO以及磁盘读写IO等，代价很高。shuffle write：每个map task将计算结果分成多份，每一份对应到下游stage的每个partition中，并且临时写到磁盘。shuffle read：reduce task通过网络拉取map task的指定分区结果数据。">
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-hash.png">
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-sort.png">
-<meta property="og:updated_time" content="2018-06-15T14:03:13.252Z">
+<meta property="og:image" content="http://minihippo.github.io/picture/shuffle-unsafe.png">
+<meta property="og:updated_time" content="2018-06-18T14:53:48.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Shuffle 原理">
 <meta name="twitter:description" content="Shuffle阶段涉及序列化反序列化、跨节点网络IO以及磁盘读写IO等，代价很高。shuffle write：每个map task将计算结果分成多份，每一份对应到下游stage的每个partition中，并且临时写到磁盘。shuffle read：reduce task通过网络拉取map task的指定分区结果数据。">
@@ -205,7 +206,18 @@
 <li>在map阶段，会先按照partition id、每个partition内部按照key对中间结果进行排序。所有的partition数据写在一个文件里，并且通过一个索引文件记录每个partition的大小和偏移量。这样并行运行时每个core只要2个文件，一个executor上最多2m个文件。。</li>
 <li>在reduce阶段，reduce task拉取数据做combine时不再使用<code>HashMap</code>而是<code>ExternalAppendOnlyMap</code>。如果内存不足会写次磁盘。<br>排序会导致性能损失。</li>
 </ul>
-<p><strong>Unsafe Shuffle</strong><br>为了进一步的优化内存和CPU使用，提升spark性能，引入了Unsafe Shuffle。<br>将中间结果以二进制的方式存储，直接在序列化的二进制数据上排序而不是java对象。排序的不是内容本身，而是内容序列化后字节数组的指针(元数据)，把数据的排序转变为了指针数组的排序，实现了直接对序列化后的二进制数据进行排序。既减少了内存使用和GC开销，也避免了频繁的序列化很反序列化。<br>限制：shuffle阶段不能有aggregate操作，分区数不超过$2^{24} - 1$</p>
+<p><strong>Unsafe Shuffle</strong><br>为了进一步的优化内存和CPU使用，提升spark性能，引入了Unsafe Shuffle。设计了一套新的内存管理机制，类似操作系统的page table结构对内存进行管理。将中间结果以二进制的方式存储到堆外内存，直接在序列化的二进制数据上排序而不是java对象。排序的不是内容本身，而是内容序列化后字节数组的指针(元数据)，把数据的排序转变为了指针数组的排序，实现了直接对序列化后的二进制数据进行排序。既减少了内存使用和GC开销，也避免了频繁的序列化很反序列化。<br><img src="/picture/shuffle-unsafe.png" alt=""></p>
+<ol>
+<li><code>Unsafe Shuffle</code>使用了堆外内存，支持off-heap和in-heap模式<ul>
+<li>在off-heap模式，内存通过一个64bits的绝对内存地址表示。obj为null，offset则为绝对的内存地址</li>
+<li>在in-heap模式，内存由相对于一个JVM对象的偏移表示。obj则是JVM对象的基地址，offset则是相对于改对象基地址的偏移</li>
+</ul>
+</li>
+<li>#page为13bit，Offset为51bit</li>
+<li>Offset == 24bit分区号 + 13bit page号 + 27bit page内偏移量，$2^13 * 128M = 1TB$</li>
+<li>24bit分区号就是为了进行分区排序，key没别编码进去因此不能排序</li>
+<li>整个过程没有反序列化<br>6，其他部分和SortShuffle没有什么区别，步骤都是类似的<br>限制：shuffle阶段不能有aggregate操作；输出不能需要排序；分区数不超过$2^{24} - 1$；序列化后单条记录不能超过128M(一个page的大小)；序列化器需要是KryoSerializer等</li>
+</ol>
 <p>Sort Shuffle包括Unsafe Shuffle，当条件符合就优先使用Unsafe Shuffle。</p>
 <h2><span id="shuffle详细实现流程">Shuffle详细实现流程</span></h2><p>针对SortShuffle的实现，具体解释整个实现流程。</p>
 <h3><span id="shuffle-write">Shuffle Write</span></h3><p>Shuffle Write 主要分为三个阶段：</p>
@@ -216,7 +228,7 @@
 </ul>
 <p>关于磁盘溢写：<br>如果当前使用内存超过5M（<code>spark.shuffle.spill.initalMemoryThreshold</code>设置大小，默认5M，主要是防止spill的文件过小），map task会向<code>shuffleMemoryManager</code>申请<code>2 * currentMemory - myMemoryThreshold</code>大小的内存，如果申请不到就会触发spill操作。<br><code>shuffleMemoryManager</code>是executor上所有task共享的， 并行task共享executor的内存，executor能分配出去的内存是<code>executorHeapMemory * spark.shuffle.memoryFraction * spark.shuffle.safetyFraction</code>。由于内存检查<code>estimateSize</code>是使用采样算法来进行估算的，采样周期不固定，呈指数增长。因此内存开的越大反而容易OOM，可以适当调低<code>spark.shuffle.safetyFraction</code>参数。</p>
 <p>因此spark内存使用是很激进的，如果中间结果内存放得下会放进内存，会不会写磁盘做容错？</p>
-<h3><span id="shuffle-read">Shuffle Read</span></h3><h3><span id="reference">Reference</span></h3><p>Spark Shuffle的演变，<a href="http://sharkdtu.com/posts/spark-shuffle.html" target="_blank" rel="external">Spark Shuffle原理及相关调优</a><br><a href="http://www.cnblogs.com/dt-zhw/p/5734921.html" target="_blank" rel="external">Unsafe Shuffle实现流程</a></p>
+<h3><span id="shuffle-read">Shuffle Read</span></h3><h3><span id="reference">Reference</span></h3><p>Spark Shuffle的演变，<a href="http://sharkdtu.com/posts/spark-shuffle.html" target="_blank" rel="external">Spark Shuffle原理及相关调优</a><br><a href="https://www.jianshu.com/p/d328c96aebfd" target="_blank" rel="external">Spark Tungsten-sort Based Shuffle 分析</a><br><a href="https://github.com/hustnn/TungstenSecret/tree/master" target="_blank" rel="external">探索Spark Tungsten的秘密</a></p>
 
       
 
@@ -505,6 +517,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Word2Vec</a>
               </li>
              
@@ -513,7 +529,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
+                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,23 +569,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,6 +586,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
