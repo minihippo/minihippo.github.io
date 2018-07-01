@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-hash.png">
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-sort.png">
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-unsafe.png">
-<meta property="og:updated_time" content="2018-06-18T14:53:48.829Z">
+<meta property="og:updated_time" content="2018-06-18T14:59:49.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Shuffle 原理">
 <meta name="twitter:description" content="Shuffle阶段涉及序列化反序列化、跨节点网络IO以及磁盘读写IO等，代价很高。shuffle write：每个map task将计算结果分成多份，每一份对应到下游stage的每个partition中，并且临时写到磁盘。shuffle read：reduce task通过网络拉取map task的指定分区结果数据。">
@@ -227,7 +227,7 @@
 <li>当一个map task执行完毕之后，对所有的临时文件和内存中的结果进行merge操作，做归并排序，然后输出最终结果并且生成索引文件。</li>
 </ul>
 <p>关于磁盘溢写：<br>如果当前使用内存超过5M（<code>spark.shuffle.spill.initalMemoryThreshold</code>设置大小，默认5M，主要是防止spill的文件过小），map task会向<code>shuffleMemoryManager</code>申请<code>2 * currentMemory - myMemoryThreshold</code>大小的内存，如果申请不到就会触发spill操作。<br><code>shuffleMemoryManager</code>是executor上所有task共享的， 并行task共享executor的内存，executor能分配出去的内存是<code>executorHeapMemory * spark.shuffle.memoryFraction * spark.shuffle.safetyFraction</code>。由于内存检查<code>estimateSize</code>是使用采样算法来进行估算的，采样周期不固定，呈指数增长。因此内存开的越大反而容易OOM，可以适当调低<code>spark.shuffle.safetyFraction</code>参数。</p>
-<p>因此spark内存使用是很激进的，如果中间结果内存放得下会放进内存，会不会写磁盘做容错？</p>
+<p>因此spark内存使用是很激进的，如果中间结果内存放得下会放进内存，在task最后将中间结果写入磁盘。</p>
 <h3><span id="shuffle-read">Shuffle Read</span></h3><h3><span id="reference">Reference</span></h3><p>Spark Shuffle的演变，<a href="http://sharkdtu.com/posts/spark-shuffle.html" target="_blank" rel="external">Spark Shuffle原理及相关调优</a><br><a href="https://www.jianshu.com/p/d328c96aebfd" target="_blank" rel="external">Spark Tungsten-sort Based Shuffle 分析</a><br><a href="https://github.com/hustnn/TungstenSecret/tree/master" target="_blank" rel="external">探索Spark Tungsten的秘密</a></p>
 
       
@@ -493,6 +493,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
               </li>
              
@@ -501,23 +509,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ML</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,6 +526,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,18 +577,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">namenode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -598,6 +586,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">namenode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">zookeeper</a>
               </li>
              
               <li class="article-tag-list-item">
