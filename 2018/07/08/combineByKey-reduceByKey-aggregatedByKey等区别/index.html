@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>碎碎念 | MiniHippo&#39;s Blog</title>
+  <title>combineByKey,reduceByKey,aggregatedByKey等区别 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="昨天晚上思来想去总想说点什么。虽然我这个个站并不会有多少人看，但是应该还是有人看的，所以针对这么一丢丢人，解释一些东西吧。">
-<meta name="keywords" content="杂谈">
+  <meta name="description" content="reduceByKey,aggregatedByKey都是基于combineByKey。groupByKey没有mapside combine。123456def combineByKey[C](createCombiner: V =&amp;gt; C, mergeValue: (C, V) =&amp;gt; C,     mergeCombiners: (C, C) =&amp;gt; C) : RDD[(K, C">
+<meta name="keywords" content="小记,spark,rdd,transformation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="碎碎念">
-<meta property="og:url" content="http://minihippo.github.io/2017/09/18/碎碎念/index.html">
+<meta property="og:title" content="combineByKey,reduceByKey,aggregatedByKey等区别">
+<meta property="og:url" content="http://minihippo.github.io/2018/07/08/combineByKey-reduceByKey-aggregatedByKey等区别/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="昨天晚上思来想去总想说点什么。虽然我这个个站并不会有多少人看，但是应该还是有人看的，所以针对这么一丢丢人，解释一些东西吧。">
-<meta property="og:updated_time" content="2018-01-24T13:32:03.259Z">
+<meta property="og:description" content="reduceByKey,aggregatedByKey都是基于combineByKey。groupByKey没有mapside combine。123456def combineByKey[C](createCombiner: V =&amp;gt; C, mergeValue: (C, V) =&amp;gt; C,     mergeCombiners: (C, C) =&amp;gt; C) : RDD[(K, C">
+<meta property="og:updated_time" content="2018-07-08T14:40:20.650Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="碎碎念">
-<meta name="twitter:description" content="昨天晚上思来想去总想说点什么。虽然我这个个站并不会有多少人看，但是应该还是有人看的，所以针对这么一丢丢人，解释一些东西吧。">
+<meta name="twitter:title" content="combineByKey,reduceByKey,aggregatedByKey等区别">
+<meta name="twitter:description" content="reduceByKey,aggregatedByKey都是基于combineByKey。groupByKey没有mapside combine。123456def combineByKey[C](createCombiner: V =&amp;gt; C, mergeValue: (C, V) =&amp;gt; C,     mergeCombiners: (C, C) =&amp;gt; C) : RDD[(K, C">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -174,38 +174,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-碎碎念" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-combineByKey-reduceByKey-aggregatedByKey等区别" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      碎碎念
+      combineByKey,reduceByKey,aggregatedByKey等区别
     </h1>
   
 
         
-        <a href="/2017/09/18/碎碎念/" class="archive-article-date">
-  	<time datetime="2017-09-18T08:24:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
+        <a href="/2018/07/08/combineByKey-reduceByKey-aggregatedByKey等区别/" class="archive-article-date">
+  	<time datetime="2018-07-08T14:20:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>昨天晚上思来想去总想说点什么。虽然我这个个站并不会有多少人看，但是应该还是有人看的，所以针对这么一丢丢人，解释一些东西吧。</p>
+        <p>reduceByKey,aggregatedByKey都是基于combineByKey。groupByKey没有mapside combine。<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>, mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>, </div><div class="line">    mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>) : <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>](zeroValue: <span class="type">U</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) =&gt; <span class="type">U</span>,</div><div class="line">    combOp: (<span class="type">U</span>, <span class="type">U</span>) =&gt; <span class="type">U</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)]</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(<span class="type">T</span> =&gt; <span class="type">K</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">Iterable</span>[<span class="type">V</span>])]</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<ol>
-<li><p>关于评论<br>目前包括以后都不打算做评论。因为这个技术博毕竟是我自己记录东西的一个私密的地方，没有必要设置评论。如果你对于某篇文章的某个点有疑问，欢迎给我发邮件，我会每天都会看邮件。欢迎讨论技术／升学／找工作问题。</p>
-</li>
-<li><p>关于隐私<br>其实有心找一个人很容易。大家在网络的两端就看看网上的东西就好，除了我发布的东西，并不希望被关注个人生活的其他方面。交流技术也是件很开心的事情啊。</p>
-</li>
-<li><p>关于菜单<br>笔记主要是记录coding／学习遇到的问题；周记是每周总结（希望我自己能每周都写吧嘤嘤嘤- -）；杂谈就是各种乱七八糟归类困难的东西；备份是学习中遇到容易忘的知识系统总结，这些内容大部分都很基础很简单，但是找起来又费劲那种。</p>
-</li>
-</ol>
-<p>希望自己能好好运营这个个人博吧～</p>
-<p align="right">By 小河马</p>
+<p><strong>aggregateByKey和combineByKey区别</strong>：aggregateByKey直接可以创建zeroValue，而不用根据v初始化combiner，当mergevalue和createCombiner操作相同时，优先使用aggregateByKey</p>
+<h4><span id="1combinebykey">1.CombineByKey</span></h4><p>源码<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">combineByKey</span></span>[<span class="type">C</span>](</div><div class="line">  createCombiner: <span class="type">V</span> =&gt; <span class="type">C</span>,</div><div class="line">  mergeValue: (<span class="type">C</span>, <span class="type">V</span>) =&gt; <span class="type">C</span>,</div><div class="line">  mergeCombiners: (<span class="type">C</span>, <span class="type">C</span>) =&gt; <span class="type">C</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">C</span>)] = self.withScope &#123;</div><div class="line">combineByKeyWithClassTag(createCombiner, mergeValue, mergeCombiners)(<span class="literal">null</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4><span id="2aggregatedbykey">2.aggregatedByKey</span></h4><p>源码<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>[<span class="type">U</span>: <span class="type">ClassTag</span>](zeroValue: <span class="type">U</span>, partitioner: <span class="type">Partitioner</span>)(seqOp: (<span class="type">U</span>, <span class="type">V</span>) =&gt; <span class="type">U</span>,</div><div class="line">  combOp: (<span class="type">U</span>, <span class="type">U</span>) =&gt; <span class="type">U</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">U</span>)] = self.withScope &#123;</div><div class="line"></div><div class="line"><span class="comment">// 中间代码省略，主要看最后一个，调用combineByKey</span></div><div class="line"></div><div class="line"><span class="keyword">val</span> cleanedSeqOp = self.context.clean(seqOp)</div><div class="line"><span class="comment">// seqOp，同时是，createCombiner，mergeValue。而combOp是mergeCombiners</span></div><div class="line">combineByKeyWithClassTag[<span class="type">U</span>]((v: <span class="type">V</span>) =&gt; cleanedSeqOp(createZero(), v),</div><div class="line">  cleanedSeqOp, combOp, partitioner)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4><span id="3reducebykey">3.reduceByKey</span></h4><p>源码<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(partitioner: <span class="type">Partitioner</span>, func: (<span class="type">V</span>, <span class="type">V</span>) =&gt; <span class="type">V</span>): <span class="type">RDD</span>[(<span class="type">K</span>, <span class="type">V</span>)] = self.withScope &#123;  </div><div class="line">  combineByKey[<span class="type">V</span>]((v: <span class="type">V</span>) =&gt; v, func, func, partitioner)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
 
@@ -219,7 +213,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">小记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rdd</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">transformation</a>
         		</li>
       		
 		</ul>
@@ -275,7 +281,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2017/09/18/碎碎念/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/07/08/combineByKey-reduceByKey-aggregatedByKey等区别/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -289,18 +295,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/09/18/git使用指南/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          git使用指南
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/09/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2018/06/12/Spark-MLlib-Word2Vec-原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark MLlib Word2Vec 原理</div>
       <i class="icon-circle-right"></i>
     </a>
   
