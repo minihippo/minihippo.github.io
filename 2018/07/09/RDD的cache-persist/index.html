@@ -6,23 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://minihippo.github.io">
-  <title>ML Reading Notes-01 | MiniHippo&#39;s Blog</title>
+  <title>RDD的cache(), persist() | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Introductionmachine learning: look for a function to do something like speech recognition etc.">
-<meta name="keywords" content="notes,ML">
+  <meta name="description" content="将RDD缓存有利于后续action的操作。 cache &amp;amp; persistcache == persist(MEMORY_ONLY), 只缓存在内存中。persist提供多个缓存程度的选择。缓存rdd使用hashmap存储，key为rdd.id，value为rdd内容，由blockManager管理。后续的resultTask会追溯所依赖的rdd是否已经cache过了，是则向blockMa">
+<meta name="keywords" content="spark,rdd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ML Reading Notes-01">
-<meta property="og:url" content="http://minihippo.github.io/2018/01/15/ML-Reading-Notes-01/index.html">
+<meta property="og:title" content="RDD的cache(), persist()">
+<meta property="og:url" content="http://minihippo.github.io/2018/07/09/RDD的cache-persist/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="Introductionmachine learning: look for a function to do something like speech recognition etc.">
-<meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/1-1.png">
-<meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/1-2.png">
-<meta property="og:image" content="http://minihippo.github.io/ML-ReadingNotes/1-3.png">
-<meta property="og:updated_time" content="2018-01-31T08:39:22.025Z">
+<meta property="og:description" content="将RDD缓存有利于后续action的操作。 cache &amp;amp; persistcache == persist(MEMORY_ONLY), 只缓存在内存中。persist提供多个缓存程度的选择。缓存rdd使用hashmap存储，key为rdd.id，value为rdd内容，由blockManager管理。后续的resultTask会追溯所依赖的rdd是否已经cache过了，是则向blockMa">
+<meta property="og:image" content="http://minihippo.github.io/picture/rdd_persist.png">
+<meta property="og:updated_time" content="2018-07-09T11:09:43.189Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ML Reading Notes-01">
-<meta name="twitter:description" content="Introductionmachine learning: look for a function to do something like speech recognition etc.">
-<meta name="twitter:image" content="http://minihippo.github.io/ML-ReadingNotes/1-1.png">
+<meta name="twitter:title" content="RDD的cache(), persist()">
+<meta name="twitter:description" content="将RDD缓存有利于后续action的操作。 cache &amp;amp; persistcache == persist(MEMORY_ONLY), 只缓存在内存中。persist提供多个缓存程度的选择。缓存rdd使用hashmap存储，key为rdd.id，value为rdd内容，由blockManager管理。后续的resultTask会追溯所依赖的rdd是否已经cache过了，是则向blockMa">
+<meta name="twitter:image" content="http://minihippo.github.io/picture/rdd_persist.png">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -178,125 +176,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ML-Reading-Notes-01" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RDD的cache-persist" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ML Reading Notes-01
+      RDD的cache(), persist()
     </h1>
   
 
         
-        <a href="/2018/01/15/ML-Reading-Notes-01/" class="archive-article-date">
-  	<time datetime="2018-01-15T13:43:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-15</time>
+        <a href="/2018/07/09/RDD的cache-persist/" class="archive-article-date">
+  	<time datetime="2018-07-09T08:58:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="introduction">Introduction</span></h1><p><strong>machine learning</strong>: look for a function to do something like speech recognition etc.</p>
-<a id="more"></a>
-<p><img src="/ML-ReadingNotes/1-1.png" style="zoom:40%"></p>
-<h2><span id="learning-map">Learning Map</span></h2><p>overview</p>
-<p><img src="/ML-ReadingNotes/1-2.png" style="zoom:40%"></p>
-<table>
-<thead>
-<tr>
-<th>no.</th>
-<th>scenario</th>
-<th>task/diff</th>
-<th>difference</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Supervised Learning</td>
-<td></td>
-<td>labelled</td>
-</tr>
-<tr>
-<td>2</td>
-<td></td>
-<td>Regression</td>
-<td>$f$ output: scalar</td>
-</tr>
-<tr>
-<td>3</td>
-<td></td>
-<td>Classification</td>
-<td>$f$ output: classification</td>
-</tr>
-<tr>
-<td>4</td>
-<td></td>
-<td>Structured Learning</td>
-<td>$f$ output: structure</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Semi-Supervised Learning</td>
-<td>data is related to task</td>
-<td>labelled &amp; unlabelled</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Transfer Learning</td>
-<td>data is unrelated</td>
-<td>labelled &amp; unlabelled</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Unsupervised Learning</td>
-<td>Like word2vec</td>
-<td>machine learns meaning</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Reinforcement Learning</td>
-<td>have no certain or unique ans</td>
-<td>learn from critics, better or worse</td>
-</tr>
-</tbody>
-</table>
-<h3><span id="supervised-learning">Supervised Learning</span></h3><h4><span id="1-regression">1. Regression</span></h4><p>the output of target function $f$ is scalar.</p>
-<h4><span id="2-classification">2. classification</span></h4><p>binary classification: the output of target function $f$ is yes/no.<br>Multi-class classification: the ouput of target function $f$ is classification</p>
-<p><strong>1&amp;2 method</strong>: linear model and Non-linear Model, deep learning is one of non-linear model for complicated problems.</p>
-<h4><span id="3-structured-learning">3. Structured Learning</span></h4><p>the output of target function $f$ is structured data.<br>比如，根据一段语音得到对应文本。</p>
-<h3><span id="semi-supervised-learning-amp-transfer-learning">Semi-Supervised Learning &amp; Transfer Learning</span></h3><p>both labelled and unlabelled data, semi-supervised data is related to the task considered.<br>For example, recognizing cat and dogs, transfer learning:<br><img src="/ML-ReadingNotes/1-3.png" style="zoom:40%"></p>
+        <p>将RDD缓存有利于后续action的操作。</p>
+<h4><span id="cache-amp-persist">cache &amp; persist</span></h4><p>cache == persist(MEMORY_ONLY), 只缓存在内存中。<br>persist提供多个缓存程度的选择。<br><img src="/picture/rdd_persist.png" ,="" style="zoom:50%"><br>缓存rdd使用hashmap存储，key为rdd.id，value为rdd内容，由blockManager管理。<br>后续的resultTask会追溯所依赖的rdd是否已经cache过了，是则向blockManager发送请求，判断是否可以直接获取还是需要重新计算。</p>
+<p>如果存储rdd的内存达到阈值？<br>spark会根据rdd缓存的程度进行写入磁盘或者删除。这些删除的rdd可以通过世代关系重新计算得到。</p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -307,11 +212,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">notes</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ML</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">rdd</a>
         		</li>
       		
 		</ul>
@@ -367,7 +272,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/01/15/ML-Reading-Notes-01/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://minihippo.github.io/2018/07/09/RDD的cache-persist/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -381,18 +286,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/01/23/ML-Reading-Notes-02/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          ML Reading Notes-02
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/10/18/Surfing-by-An-Effective-Way/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Surfing by An Effective Way</div>
+    <a href="/2018/07/08/combineByKey-reduceByKey-aggregatedByKey等区别/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">combineByKey, reduceByKey, aggregatedByKey等区别</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -419,7 +315,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Learning Map</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">Supervised Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">1. Regression</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">2. classification</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">3. Structured Learning</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.2.</span> <span class="toc-text">Semi-Supervised Learning & Transfer Learning</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">cache & persist</span></a></li></ol>
                     </div>
                 </span>
             </div>
