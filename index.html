@@ -181,7 +181,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/09/RDD的cache-persist/">RDD的cache(), persist()</a>
+      <a class="article-title" href="/2018/07/09/RDD的cache-persist/">RDD的cache(), persist()和checkpoint</a>
     </h1>
   
 
@@ -195,9 +195,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>将RDD缓存有利于后续action的操作。</p>
-<h4><span id="cache-amp-persist">cache &amp; persist</span></h4><p>cache == persist(MEMORY_ONLY), 只缓存在内存中。<br>persist提供多个缓存程度的选择。<br><img src="/picture/rdd_persist.png" ,="" style="zoom:50%"><br>缓存rdd使用hashmap存储，key为rdd.id，value为rdd内容，由blockManager管理。<br>后续的resultTask会追溯所依赖的rdd是否已经cache过了，是则向blockManager发送请求，判断是否可以直接获取还是需要重新计算。</p>
-<p>如果存储rdd的内存达到阈值？<br>spark会根据rdd缓存的程度进行写入磁盘或者删除。这些删除的rdd可以通过世代关系重新计算得到。</p>
-
+<h4 id="RDD缓存"><a href="#RDD缓存" class="headerlink" title="RDD缓存"></a>RDD缓存</h4><p>cache == persist(MEMORY_ONLY), 只缓存在内存中。<br>persist提供多个缓存程度的选择。</p>
+        
+          <a class="article-more-a" href="/2018/07/09/RDD的cache-persist/#more">more >></a>
+        
       
 
       
@@ -1125,19 +1126,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">transformation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1149,15 +1138,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">教程</a>
+                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">备份</a>
+                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">transformation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1189,19 +1178,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">备份</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vpn</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1217,11 +1206,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vim</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">markdwon</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
