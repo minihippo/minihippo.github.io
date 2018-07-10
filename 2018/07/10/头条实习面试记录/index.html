@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://minihippo.github.io">
   <title>头条实习面试记录 | MiniHippo&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天刚面完头条，大数据架构实习生岗，虽然走的是正常实习生面试流程，但是还是能感觉到面试官没有为难我。记录一下面试过程中的点吧。 scala  隐式转换  java  jvm内存结构 gc">
+  <meta name="description" content="今天刚面完头条，大数据架构实习生岗，虽然走的是正常实习生面试流程，但是还是能感觉到面试官没有为难我。记录一下面试过程中的点吧。 scala  隐式转换">
 <meta name="keywords" content="备份,面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="头条实习面试记录">
 <meta property="og:url" content="http://minihippo.github.io/2018/07/10/头条实习面试记录/index.html">
 <meta property="og:site_name" content="MiniHippo&#39;s Blog">
-<meta property="og:description" content="今天刚面完头条，大数据架构实习生岗，虽然走的是正常实习生面试流程，但是还是能感觉到面试官没有为难我。记录一下面试过程中的点吧。 scala  隐式转换  java  jvm内存结构 gc">
-<meta property="og:updated_time" content="2018-07-10T13:34:42.875Z">
+<meta property="og:description" content="今天刚面完头条，大数据架构实习生岗，虽然走的是正常实习生面试流程，但是还是能感觉到面试官没有为难我。记录一下面试过程中的点吧。 scala  隐式转换">
+<meta property="og:updated_time" content="2018-07-10T13:48:46.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="头条实习面试记录">
-<meta name="twitter:description" content="今天刚面完头条，大数据架构实习生岗，虽然走的是正常实习生面试流程，但是还是能感觉到面试官没有为难我。记录一下面试过程中的点吧。 scala  隐式转换  java  jvm内存结构 gc">
+<meta name="twitter:description" content="今天刚面完头条，大数据架构实习生岗，虽然走的是正常实习生面试流程，但是还是能感觉到面试官没有为难我。记录一下面试过程中的点吧。 scala  隐式转换">
   
     <link rel="alternative" href="/atom.xml" title="MiniHippo&#39;s Blog" type="application/atom+xml">
   
@@ -199,12 +199,13 @@
 <ol>
 <li>隐式转换</li>
 </ol>
+<a id="more"></a>
 <p><strong>java</strong></p>
 <ol>
 <li>jvm内存结构</li>
 <li>gc</li>
+<li>java多线程，子线程执行完父系线程才执行</li>
 </ol>
-<a id="more"></a>
 <p><strong>spark</strong></p>
 <ol>
 <li>pipeline</li>
@@ -449,19 +450,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">存储</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">小记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,7 +462,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">存储</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">小记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,14 +495,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NLP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rdd</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,11 +578,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vim</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scala</a>
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,10 +599,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">join</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
