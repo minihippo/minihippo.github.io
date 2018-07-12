@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-hash.png">
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-sort.png">
 <meta property="og:image" content="http://minihippo.github.io/picture/shuffle-unsafe.png">
-<meta property="og:updated_time" content="2018-07-10T13:45:28.987Z">
+<meta property="og:updated_time" content="2018-07-11T13:28:27.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark Shuffle 原理">
 <meta name="twitter:description" content="Shuffle阶段涉及序列化反序列化、跨节点网络IO以及磁盘读写IO等，代价很高。shuffle write：每个map task将计算结果分成多份，每一份对应到下游stage的每个partition中，并且临时写到磁盘。shuffle read：reduce task通过网络拉取map task的指定分区结果数据。">
@@ -214,7 +214,7 @@
 </ul>
 </li>
 <li>#page为13bit，Offset为51bit</li>
-<li>Offset == 24bit分区号 + 13bit page号 + 27bit page内偏移量，$2^13 * 128M = 1TB$</li>
+<li>Offset == 24bit分区号 + 13bit page号 + 27bit page内偏移量，$2^{13} * 128M = 1TB$</li>
 <li>24bit分区号就是为了进行分区排序，key没别编码进去因此不能排序</li>
 <li>整个过程没有反序列化 </li>
 <li>其他部分和SortShuffle没有什么区别，步骤都是类似的<br>限制：shuffle阶段不能有aggregate操作；输出不能需要排序；分区数不超过$2^{24} - 1$；序列化后单条记录不能超过128M(一个page的大小)；序列化器需要是KryoSerializer等</li>
@@ -487,22 +487,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">notes</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">存储</a>
               </li>
              
@@ -515,15 +499,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">notes</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">分布式系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DistributedSystem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">rdd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -535,7 +539,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Shuffle</a>
+                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">transformation</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,14 +583,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">备份 - hexo - git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">transformation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
@@ -615,15 +615,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">周记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">scala</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vim</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">周记</a>
               </li>
              
               <li class="article-tag-list-item">
